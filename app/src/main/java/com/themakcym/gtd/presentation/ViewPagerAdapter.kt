@@ -2,20 +2,16 @@ package com.themakcym.gtd.presentation
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.themakcym.gtd.domain.models.Task
 
-class ViewPagerAdapter(fragmentActivity: MainActivity) : FragmentStateAdapter(fragmentActivity) {
 
-    private var list : List<String> = listOf()
+class ViewPagerAdapter(fragmentActivity: MainActivity, private val tasks: List<Task>) : FragmentStateAdapter(fragmentActivity) {
 
     override fun getItemCount(): Int {
-        return list.count()
-    }
-
-    fun submitList(list : List<String>) {
-        this.list = list
+        return tasks.count()
     }
 
     override fun createFragment(position: Int): Fragment {
-        return RecyclerFragment(category = list[position]);
+        return GroupFragment(tasks[position].taskId)
     }
 }

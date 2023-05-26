@@ -1,24 +1,24 @@
-package com.themakcym.gtd.domain.useCases
+package com.themakcym.gtd.domain.usecases
 
-import com.themakcym.gtd.data.Task
+import com.themakcym.gtd.domain.models.Task
 import com.themakcym.gtd.domain.Repository
 import java.util.Date
 
 
 class AddTaskUC(private val repository: Repository) {
-    fun execute(task: Task) {
+    suspend fun execute(task: Task) {
         repository.createTask(task)
     }
 }
 
 class RetrieveTaskUC(private val repository: Repository) {
-    fun execute(taskId: Int) : Task {
+    suspend fun execute(taskId: Int) : Task {
         return repository.retrieveTask(taskId)
     }
 }
 
 class RenameTaskUC(private val repository: Repository) {
-    fun execute(task: Task, taskTitle: String) {
+    suspend fun execute(task: Task, taskTitle: String) {
         task.taskTitle = taskTitle
         task.taskUpdated = Date()
         repository.updateTask(task)
@@ -26,7 +26,7 @@ class RenameTaskUC(private val repository: Repository) {
 }
 
 class DescribeTaskUC(private val repository: Repository) {
-    fun execute(task: Task, taskDescription: String) {
+    suspend fun execute(task: Task, taskDescription: String) {
         task.taskTitle = taskDescription
         task.taskUpdated = Date()
         repository.updateTask(task)
@@ -34,14 +34,14 @@ class DescribeTaskUC(private val repository: Repository) {
 }
 
 class MoveTaskUC(private val repository: Repository) {
-    fun execute(task: Task, groupId: Int) {
+    suspend fun execute(task: Task, groupId: Int) {
         task.taskGroup = groupId
         repository.updateTask(task)
     }
 }
 
 class CompleteTaskUC(private val repository: Repository) {
-    fun execute(task: Task) {
+    suspend fun execute(task: Task) {
         assert(!task.isCompleted)
         task.isCompleted = true
         task.taskUpdated = Date()
@@ -50,7 +50,7 @@ class CompleteTaskUC(private val repository: Repository) {
 }
 
 class IncompleteTaskUC(private val repository: Repository) {
-    fun execute(task: Task) {
+    suspend fun execute(task: Task) {
         assert(task.isCompleted)
         task.isCompleted = false
         task.taskUpdated = Date()
@@ -59,7 +59,7 @@ class IncompleteTaskUC(private val repository: Repository) {
 }
 
 class TagTaskUC(private val repository: Repository) {
-    fun execute(task: Task, tagId: Int) {
+    suspend fun execute(task: Task, tagId: Int) {
         assert(task.taskTags.contains(tagId))
         task.taskTags += tagId
         repository.updateTask(task)
@@ -67,7 +67,7 @@ class TagTaskUC(private val repository: Repository) {
 }
 
 class UntagTaskUC(private val repository: Repository) {
-    fun execute(task: Task, tagId: Int) {
+    suspend fun execute(task: Task, tagId: Int) {
         assert(!task.taskTags.contains(tagId))
         task.taskTags -= tagId
         repository.updateTask(task)
@@ -75,13 +75,13 @@ class UntagTaskUC(private val repository: Repository) {
 }
 
 class DeleteTaskUC(private val repository: Repository) {
-    fun execute(task: Task) {
+    suspend fun execute(task: Task) {
         repository.deleteTask(task)
     }
 }
 
 class SelectTasksByGroup(private val repository: Repository) {
-    fun execute(groupId: Int) : List<Task> {
+    suspend fun execute(groupId: Int) : List<Task> {
         return repository.selectTasksByGroup(groupId)
     }
 }

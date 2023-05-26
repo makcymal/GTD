@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.themakcym.gtd.R
-import com.themakcym.gtd.data.Task
+import com.themakcym.gtd.domain.models.Task
 
 
-class TaskListAdapter(private val context: Context): ListAdapter<Task, TaskListAdapter.TaskListViewHolder>(
+class GroupAdapter(private val context: Context): ListAdapter<Task, GroupAdapter.TaskListViewHolder>(
     CallBack()
 ) {
 
@@ -43,7 +43,7 @@ class TaskListAdapter(private val context: Context): ListAdapter<Task, TaskListA
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
+//    override fun getItemViewType(position: Int): Int {
+//        return super.getItemViewType(position)
+//    }
 }

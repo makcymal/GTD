@@ -2,27 +2,33 @@ package com.themakcym.gtd.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.room.Room
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.themakcym.gtd.R
-import com.themakcym.gtd.data.Database
-import com.themakcym.gtd.data.Task
+import com.themakcym.gtd.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
 
-//    lateinit var db: Database
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        var db = Room.databaseBuilder(this, Database::class.java, "gtd.db").build()
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            db.taskDao().addTask(Task())
+        viewModel.groupsList.observe(this) {
+            binding.groupsTL.removeAllTabs()
+            for (group in it) {
+                val tab = binding.groupsTL.newTab().setText(group.groupTitle)
+                binding.groupsTL.addTab(tab)
+            }
         }
+
+        viewModel.actualGroup
     }
 
 //    private fun initViewPager() {
@@ -41,16 +47,4 @@ class MainActivity : AppCompatActivity() {
 //        val tab = tb.newTab().setText("+")
 //        tb.addTab(tab)
 //    }
-
-    fun completionAction(view: View) {
-
-    }
-
-    fun deleteAction(view: View) {
-
-    }
-
-    fun renameAction(view: View) {
-
-    }
 }

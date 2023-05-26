@@ -1,23 +1,22 @@
 package com.themakcym.gtd.domain
 
-import com.themakcym.gtd.data.Group
-import com.themakcym.gtd.data.Tag
-import com.themakcym.gtd.data.Task
+import com.themakcym.gtd.domain.models.Group
+import com.themakcym.gtd.domain.models.Tag
+import com.themakcym.gtd.domain.models.Task
 
 interface Repository  {
-    fun createTask(task: Task)
-    fun retrieveTask(taskId: Int) : Task
-    fun updateTask(task: Task)
-    fun deleteTask(task: Task)
-    fun selectTasksByGroup(groupId: Int) : List<Task>
+    suspend fun createTask(task: Task)
+    suspend fun updateTask(task: Task)
+    suspend fun deleteTask(task: Task)
+    suspend fun selectTasksByGroup(groupId: Int) : List<Task>
 
-    fun createTag(tag: Tag)
-    fun updateTag(tag: Tag)
-    fun deleteTag(tag: Tag)
-    fun getTagsList() : List<Tag>
+    suspend fun createTag(tag: Tag)
+    suspend fun updateTag(tag: Tag)
+    suspend fun deleteTag(tag: Tag)
+    suspend fun getTagsList() : List<Tag>
 
-    fun createGroup(group: Group)
-    fun updateGroup(group: Group)
-    fun deleteGroup(group: Group)
-    fun getGroupsList() : List<Group>
+    suspend fun createGroup(group: Group)
+    suspend fun updateGroup(group: Group)
+    suspend fun deleteGroup(group: Group)
+    suspend fun getGroupsList() : List<Group>
 }

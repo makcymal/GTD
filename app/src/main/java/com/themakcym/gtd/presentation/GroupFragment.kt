@@ -8,24 +8,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.themakcym.gtd.R
-import com.themakcym.gtd.domain.useCases.*
+import com.themakcym.gtd.domain.usecases.*
 
 
-class RecyclerFragment(private val groupId: Int) : Fragment() {
+class GroupFragment(private val groupId: Int) : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.recycler_fragment, container, false)
+        return inflater.inflate(R.layout.group_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recycler = view.findViewById<RecyclerView>(R.id.recycler)
-        val adapter = TaskListAdapter(view.context)
+        val recycler = view.findViewById<RecyclerView>(R.id.groupRecycler)
+        val adapter = GroupAdapter(view.context)
 
         val taskList = SelectTasksByGroup().execute(groupId)
         adapter.submitList(taskList)

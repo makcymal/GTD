@@ -1,10 +1,11 @@
-package com.themakcym.gtd.data
+package com.themakcym.gtd.data.room.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Update
 import androidx.room.Query
+import com.themakcym.gtd.domain.models.Tag
 
 
 @Dao
