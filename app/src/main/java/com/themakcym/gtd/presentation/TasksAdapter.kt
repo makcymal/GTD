@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.themakcym.gtd.R
-import com.themakcym.gtd.data.models.Task
+import com.themakcym.gtd.domain.models.Task
 
 
 class TasksAdapter : ListAdapter<Task, TasksAdapter.TasksViewHolder>(

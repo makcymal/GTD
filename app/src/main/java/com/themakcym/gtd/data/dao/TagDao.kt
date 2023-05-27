@@ -5,22 +5,22 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Update
 import androidx.room.Query
-import com.themakcym.gtd.data.models.Tag
+import com.themakcym.gtd.data.entity.TagEnt
 
 
 @Dao
 abstract class TagDao {
 
     @Insert
-    abstract fun addTag(tag: Tag)
-
-    @Delete
-    abstract fun deleteTag(tag: Tag)
+    abstract fun insertTag(tag: TagEnt)
 
     @Update
-    abstract fun updateTag(tag: Tag)
+    abstract fun updateTag(tag: TagEnt)
 
-    @Query("SELECT * from tags")
-    abstract fun getTagList(): List<Tag>
+    @Delete
+    abstract fun deleteTag(tag: TagEnt)
+
+    @Query("SELECT * FROM tags")
+    abstract fun selectTags(): List<TagEnt>
 
 }

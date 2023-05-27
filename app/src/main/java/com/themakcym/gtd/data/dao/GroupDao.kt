@@ -1,25 +1,21 @@
 package com.themakcym.gtd.data.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
-import androidx.room.Query
-import com.themakcym.gtd.data.models.Group
+import androidx.room.*
+import com.themakcym.gtd.data.entity.GroupEnt
 
 
 @Dao
 abstract class GroupDao {
 
-    @Insert
-    abstract fun addGroup(group: Group)
-
-    @Delete
-    abstract fun deleteGroup(group: Group)
+    @Insert(onConflict=OnConflictStrategy.REPLACE)
+    abstract fun insertGroup(group: GroupEnt)
 
     @Update
-    abstract fun updateGroup(group: Group)
+    abstract fun updateGroup(group: GroupEnt)
 
-    @Query("SELECT * from groups")
-    abstract fun getGroupsList(): List<Group>
+    @Delete
+    abstract fun deleteGroup(group: GroupEnt)
+
+    @Query("SELECT * FROM groups")
+    abstract fun selectGroups(): List<GroupEnt>
 }

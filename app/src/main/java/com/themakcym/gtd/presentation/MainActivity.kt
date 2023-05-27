@@ -3,8 +3,7 @@ package com.themakcym.gtd.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.themakcym.gtd.R
+import com.google.android.material.tabs.TabLayoutMediator
 import com.themakcym.gtd.databinding.ActivityMainBinding
 
 
@@ -19,13 +18,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel.selectGroups()
+        viewModel.selectTags()
 
-        viewModel.groupsList.observe(this) {
+        viewModel.groups.observe(this) {
             binding.groupsTL.removeAllTabs()
             for (group in it) {
                 val tab = binding.groupsTL.newTab().setText(group.groupTitle)
                 binding.groupsTL.addTab(tab)
             }
+
+            binding.groupsVP.adapter = ViewPagerAdapter(this, it)
+
+            TabLayoutMediator(binding.groupsTL, binding.groupsVP) { tab, idx ->
+                tab.text = it[idx].groupTitle
+            }.attach()
         }
     }
 

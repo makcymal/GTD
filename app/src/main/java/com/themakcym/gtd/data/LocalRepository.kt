@@ -1,68 +1,96 @@
 package com.themakcym.gtd.data
 
+import com.themakcym.gtd.data.entity.TaskTagRel
 import com.themakcym.gtd.domain.Repository
-import com.themakcym.gtd.data.models.Group
-import com.themakcym.gtd.data.models.Tag
-import com.themakcym.gtd.data.models.Task
+import com.themakcym.gtd.domain.models.*
+import java.util.*
+
 
 class LocalRepository(private val db: Database) : Repository {
 
-    override suspend fun createTask(task: Task) {
-        db.taskDao().addTask(task)
-    }
-
-    override suspend fun updateTask(task: Task) {
-        db.taskDao().updateTask(task)
-    }
-
-    override suspend fun deleteTask(task: Task) {
-        db.taskDao().deleteTask(task)
-    }
-
-    override suspend fun selectTasksByGroup(groupId: Int): List<Task> {
-        return db.taskDao().getTasksByGroup(groupId)
-    }
-
-    // Task >>>
-
+    private val mapper = Mapper()
 
     // <<< Group
 
     override suspend fun createGroup(group: Group) {
-        db.groupDao().addGroup(group)
+        db.groupDao().insertGroup(mapper.groupIntoEnt(group))
     }
 
     override suspend fun updateGroup(group: Group) {
-        db.groupDao().updateGroup(group)
+        db.groupDao().updateGroup(mapper.groupIntoEnt(group))
     }
 
     override suspend fun deleteGroup(group: Group) {
-        db.groupDao().deleteGroup(group)
+        db.groupDao().deleteGroup(mapper.groupIntoEnt(group))
     }
 
-    override suspend fun getGroupsList(): List<Group> {
-        return db.groupDao().getGroupsList()
+    override suspend fun selectGroups(): List<Group> {
+        val groups = mutableListOf<Group>()
+        for (groupEnt in db.groupDao().selectGroups()) {
+            groups += mapper.groupFromEnt(groupEnt)
+        }
+        return groups
     }
 
     // Group >>>
 
     // <<< Tag
 
-    override suspend fun createTag(tag: Tag) {
-        db.tagDao().addTag(tag)
+    override suspend fun insertTag(tag: Tag) {
+        db.tagDao().insertTag(mapper.tagIntoEnt(tag))
     }
 
     override suspend fun updateTag(tag: Tag) {
-        db.tagDao().updateTag(tag)
+        db.tagDao().updateTag(mapper.tagIntoEnt(tag))
     }
 
     override suspend fun deleteTag(tag: Tag) {
-        db.tagDao().deleteTag(tag)
+        db.tagDao().deleteTag(mapper.tagIntoEnt(tag))
     }
 
-    override suspend fun getTagsList(): List<Tag> {
-        return db.tagDao().getTagList()
+    override suspend fun selectTags(): List<Tag> {
+        val tags = mutableListOf<Tag>()
+        for (tagEnt in db.tagDao().selectTags()) {
+            tags += mapper.tagFromEnt(tagEnt)
+        }
+        return tags
     }
 
     // Tag >>>
+
+    // <<< Task
+
+    override suspend fun createTask(task: Task) {
+        db.taskDao().insertTask(mapper.taskIntoEnt(task))
+        for (taskTagRel in mapper.taskIntoRel(task)) {
+            db.taskTagDao().insertTaskTagRel(taskTagRel.taskId, taskTagRel.tagId)
+        }
+    }
+
+    override suspend fun updateTask(task: Task) {
+        db.taskDao().updateTask(mapper.taskIntoEnt(task))
+    }
+
+    override suspend fun deleteTask(task: Task) {
+        db.taskDao().deleteTask(mapper.taskIntoEnt(task))
+    }
+
+    override suspend fun selectTasksByGroup(groupId: UUID): List<Task> {
+        val tasks = mutableListOf<Task>()
+        for (taskEnt in db.taskDao().selectTasksByGroup(groupId)) {
+            val tagsIds = db.taskTagDao().selectTagsByTask(taskEnt.taskId)
+            tasks += mapper.taskFromEnt(taskEnt, tagsIds)
+        }
+        return tasks
+    }
+
+    override suspend fun tagTask(taskId: UUID, tagId: UUID) {
+        db.taskTagDao().insertTaskTagRel(taskId, tagId)
+    }
+
+    override suspend fun untagTask(taskId: UUID, tagId: UUID) {
+        db.taskTagDao().deleteTaskTagRel(taskId, tagId)
+    }
+
+    // Task >>>
 }

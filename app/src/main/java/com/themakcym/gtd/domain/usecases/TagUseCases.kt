@@ -1,29 +1,30 @@
 package com.themakcym.gtd.domain.usecases
 
-import com.themakcym.gtd.data.models.Tag
+import com.themakcym.gtd.domain.models.Tag
 import com.themakcym.gtd.domain.Repository
 
-class AddTagUC(private val repository: Repository) {
+
+class CreateTagUC(private val repo: Repository) {
     suspend fun execute(tag: Tag) {
-        repository.createTag(tag)
+        repo.insertTag(tag)
     }
 }
 
-class RenameTagUC(private val repository: Repository) {
+class RenameTagUC(private val repo: Repository) {
     suspend fun execute(tag: Tag, tagTitle: String) {
         tag.tagTitle = tagTitle
-        repository.updateTag(tag)
+        repo.updateTag(tag)
     }
 }
 
-class DeleteTagUC(private val repository: Repository) {
+class DeleteTagUC(private val repo: Repository) {
     suspend fun execute(tag: Tag) {
-        repository.deleteTag(tag)
+        repo.deleteTag(tag)
     }
 }
 
-class GetTagsListUC(private val repository: Repository) {
+class SelectTagsUC(private val repo: Repository) {
     suspend fun execute() : List<Tag> {
-        return repository.getTagsList()
+        return repo.selectTags()
     }
 }

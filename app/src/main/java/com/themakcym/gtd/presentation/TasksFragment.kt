@@ -22,6 +22,7 @@ class TasksFragment(private val groupId: UUID) : Fragment() {
 
         binding = TasksFragmentBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this)[TasksViewModel::class.java]
+        viewModel.groupId = groupId
         return binding.root
     }
 

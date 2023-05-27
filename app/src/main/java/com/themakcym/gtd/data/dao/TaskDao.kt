@@ -1,24 +1,22 @@
 package com.themakcym.gtd.data.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
-import androidx.room.Query
-import com.themakcym.gtd.data.models.Task
+import androidx.room.*
+import com.themakcym.gtd.data.entity.TaskEnt
+import java.util.UUID
+
 
 @Dao
 abstract class TaskDao {
 
-    @Insert
-    abstract fun addTask(task: Task)
-
-    @Delete
-    abstract fun deleteTask(task: Task)
+    @Insert(onConflict=OnConflictStrategy.REPLACE)
+    abstract fun insertTask(task: TaskEnt)
 
     @Update
-    abstract fun updateTask(task: Task)
+    abstract fun updateTask(task: TaskEnt)
 
-    @Query("SELECT * from tasks WHERE groupId = :groupId")
-    abstract fun getTasksByGroup(groupId: Int): List<Task>
+    @Delete
+    abstract fun deleteTask(task: TaskEnt)
+
+    @Query("SELECT * FROM tasks WHERE groupId = :groupId")
+    abstract fun selectTasksByGroup(groupId: UUID): List<TaskEnt>
 }

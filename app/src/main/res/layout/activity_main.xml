@@ -21,7 +21,7 @@
 
     <!-- viewpager with tasks -->
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/tasksVP"
+        android:id="@+id/groupsVP"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
