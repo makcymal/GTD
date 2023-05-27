@@ -1,11 +1,11 @@
-package com.themakcym.gtd.data.room.dao
+package com.themakcym.gtd.data.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Update
 import androidx.room.Query
-import com.themakcym.gtd.domain.models.Group
+import com.themakcym.gtd.data.models.Group
 
 
 @Dao
@@ -20,6 +20,6 @@ abstract class GroupDao {
     @Update
     abstract fun updateGroup(group: Group)
 
-    @Query("SELECT * from Group")
+    @Query("SELECT * from groups")
     abstract fun getGroupsList(): List<Group>
 }

@@ -1,6 +1,6 @@
 package com.themakcym.gtd.domain.usecases
 
-import com.themakcym.gtd.domain.models.Tag
+import com.themakcym.gtd.data.models.Tag
 import com.themakcym.gtd.domain.Repository
 
 class AddTagUC(private val repository: Repository) {

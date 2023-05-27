@@ -1,14 +1,14 @@
 package com.themakcym.gtd.domain
 
-import com.themakcym.gtd.domain.models.Group
-import com.themakcym.gtd.domain.models.Tag
-import com.themakcym.gtd.domain.models.Task
+import java.util.UUID
+import com.themakcym.gtd.data.models.*
+
 
 interface Repository  {
     suspend fun createTask(task: Task)
     suspend fun updateTask(task: Task)
     suspend fun deleteTask(task: Task)
-    suspend fun selectTasksByGroup(groupId: Int) : List<Task>
+    suspend fun selectTasksByGroup(groupId: UUID) : List<Task>
 
     suspend fun createTag(tag: Tag)
     suspend fun updateTag(tag: Tag)

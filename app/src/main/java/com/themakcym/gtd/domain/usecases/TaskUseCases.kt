@@ -1,19 +1,15 @@
 package com.themakcym.gtd.domain.usecases
 
-import com.themakcym.gtd.domain.models.Task
-import com.themakcym.gtd.domain.Repository
+import com.themakcym.gtd.data.models.Group
+import java.util.UUID
 import java.util.Date
+import com.themakcym.gtd.data.models.Task
+import com.themakcym.gtd.domain.Repository
 
 
 class AddTaskUC(private val repository: Repository) {
     suspend fun execute(task: Task) {
         repository.createTask(task)
-    }
-}
-
-class RetrieveTaskUC(private val repository: Repository) {
-    suspend fun execute(taskId: Int) : Task {
-        return repository.retrieveTask(taskId)
     }
 }
 
@@ -34,8 +30,8 @@ class DescribeTaskUC(private val repository: Repository) {
 }
 
 class MoveTaskUC(private val repository: Repository) {
-    suspend fun execute(task: Task, groupId: Int) {
-        task.taskGroup = groupId
+    suspend fun execute(task: Task, group: Group) {
+        task.groupId = group
         repository.updateTask(task)
     }
 }
@@ -59,17 +55,17 @@ class IncompleteTaskUC(private val repository: Repository) {
 }
 
 class TagTaskUC(private val repository: Repository) {
-    suspend fun execute(task: Task, tagId: Int) {
-        assert(task.taskTags.contains(tagId))
-        task.taskTags += tagId
+    suspend fun execute(task: Task, tagId: UUID) {
+        assert(task.tagsIds.contains(tagId))
+        task.tagsIds += tagId
         repository.updateTask(task)
     }
 }
 
 class UntagTaskUC(private val repository: Repository) {
-    suspend fun execute(task: Task, tagId: Int) {
-        assert(!task.taskTags.contains(tagId))
-        task.taskTags -= tagId
+    suspend fun execute(task: Task, tagId: UUID) {
+        assert(!task.tagsIds.contains(tagId))
+        task.tagsIds -= tagId
         repository.updateTask(task)
     }
 }
@@ -80,8 +76,8 @@ class DeleteTaskUC(private val repository: Repository) {
     }
 }
 
-class SelectTasksByGroup(private val repository: Repository) {
-    suspend fun execute(groupId: Int) : List<Task> {
+class GetTasksByGroupUC(private val repository: Repository) {
+    suspend fun execute(groupId: UUID) : List<Task> {
         return repository.selectTasksByGroup(groupId)
     }
 }

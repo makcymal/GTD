@@ -1,10 +1,9 @@
 package com.themakcym.gtd.data
 
-import com.themakcym.gtd.data.room.Database
 import com.themakcym.gtd.domain.Repository
-import com.themakcym.gtd.domain.models.Group
-import com.themakcym.gtd.domain.models.Tag
-import com.themakcym.gtd.domain.models.Task
+import com.themakcym.gtd.data.models.Group
+import com.themakcym.gtd.data.models.Tag
+import com.themakcym.gtd.data.models.Task
 
 class LocalRepository(private val db: Database) : Repository {
 

@@ -27,8 +27,6 @@ class MainActivity : AppCompatActivity() {
                 binding.groupsTL.addTab(tab)
             }
         }
-
-        viewModel.actualGroup
     }
 
 //    private fun initViewPager() {

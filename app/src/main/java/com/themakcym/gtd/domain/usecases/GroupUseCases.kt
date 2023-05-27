@@ -1,6 +1,6 @@
 package com.themakcym.gtd.domain.usecases
 
-import com.themakcym.gtd.domain.models.Group
+import com.themakcym.gtd.data.models.Group
 import com.themakcym.gtd.domain.Repository
 
 class AddGroupUC(private val repository: Repository) {
