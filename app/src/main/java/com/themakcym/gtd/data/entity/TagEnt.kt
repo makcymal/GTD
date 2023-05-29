@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.util.UUID
 
 
-@Entity
+@Entity(tableName = "tags")
 data class TagEnt(
     var tagTitle: String,
     @PrimaryKey

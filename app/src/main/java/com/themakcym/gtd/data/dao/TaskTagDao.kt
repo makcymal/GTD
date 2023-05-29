@@ -1,6 +1,7 @@
 package com.themakcym.gtd.data.dao
 
 import androidx.room.*
+import com.themakcym.gtd.data.entity.TaskTagRel
 import java.util.UUID
 
 
@@ -8,11 +9,11 @@ import java.util.UUID
 abstract class TaskTagDao {
 
     @Insert(onConflict=OnConflictStrategy.REPLACE)
-    abstract fun insertTaskTagRel(taskId: UUID, tagId: UUID)
+    abstract suspend fun insertTaskTagRel(taskTagRel: TaskTagRel)
 
     @Delete
-    abstract fun deleteTaskTagRel(taskId: UUID, tagId: UUID)
+    abstract suspend fun deleteTaskTagRel(taskTagRel: TaskTagRel)
 
     @Query("SELECT tagId FROM tasks_to_tags WHERE taskId = :taskId")
-    abstract fun selectTagsByTask(taskId: UUID): List<UUID>
+    abstract suspend fun selectTagsByTask(taskId: UUID): List<UUID>
 }

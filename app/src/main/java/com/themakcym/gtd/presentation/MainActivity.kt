@@ -2,6 +2,7 @@ package com.themakcym.gtd.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import com.themakcym.gtd.databinding.ActivityMainBinding
@@ -11,6 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
+    private lateinit var vpAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,8 +20,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        viewModel.selectGroups()
-        viewModel.selectTags()
 
         viewModel.groups.observe(this) {
             binding.groupsTL.removeAllTabs()
@@ -28,12 +28,19 @@ class MainActivity : AppCompatActivity() {
                 binding.groupsTL.addTab(tab)
             }
 
-            binding.groupsVP.adapter = ViewPagerAdapter(this, it)
+            vpAdapter = ViewPagerAdapter(this, it)
+            binding.groupsVP.adapter = vpAdapter
 
             TabLayoutMediator(binding.groupsTL, binding.groupsVP) { tab, idx ->
                 tab.text = it[idx].groupTitle
             }.attach()
+
+            val tab = binding.groupsTL.newTab().setText("+")
+            binding.groupsTL.addTab(tab)
         }
+
+        viewModel.selectGroups()
+        viewModel.selectTags()
     }
 
 //    private fun initViewPager() {

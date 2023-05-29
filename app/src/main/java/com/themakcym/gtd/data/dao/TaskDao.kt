@@ -9,14 +9,14 @@ import java.util.UUID
 abstract class TaskDao {
 
     @Insert(onConflict=OnConflictStrategy.REPLACE)
-    abstract fun insertTask(task: TaskEnt)
+    abstract suspend fun insertTask(task: TaskEnt)
 
     @Update
-    abstract fun updateTask(task: TaskEnt)
+    abstract suspend fun updateTask(task: TaskEnt)
 
     @Delete
-    abstract fun deleteTask(task: TaskEnt)
+    abstract suspend fun deleteTask(task: TaskEnt)
 
     @Query("SELECT * FROM tasks WHERE groupId = :groupId")
-    abstract fun selectTasksByGroup(groupId: UUID): List<TaskEnt>
+    abstract suspend fun selectTasksByGroup(groupId: UUID): List<TaskEnt>
 }

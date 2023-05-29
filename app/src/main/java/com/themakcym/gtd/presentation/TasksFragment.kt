@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.themakcym.gtd.databinding.TasksFragmentBinding
@@ -21,7 +22,7 @@ class TasksFragment(private val groupId: UUID) : Fragment() {
     ): View {
 
         binding = TasksFragmentBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this)[TasksViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[TasksViewModel::class.java]
         viewModel.groupId = groupId
         return binding.root
     }

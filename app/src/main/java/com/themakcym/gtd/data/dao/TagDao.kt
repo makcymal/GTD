@@ -12,15 +12,15 @@ import com.themakcym.gtd.data.entity.TagEnt
 abstract class TagDao {
 
     @Insert
-    abstract fun insertTag(tag: TagEnt)
+    abstract suspend fun insertTag(tag: TagEnt)
 
     @Update
-    abstract fun updateTag(tag: TagEnt)
+    abstract suspend fun updateTag(tag: TagEnt)
 
     @Delete
-    abstract fun deleteTag(tag: TagEnt)
+    abstract suspend fun deleteTag(tag: TagEnt)
 
     @Query("SELECT * FROM tags")
-    abstract fun selectTags(): List<TagEnt>
+    abstract suspend fun selectTags(): List<TagEnt>
 
 }

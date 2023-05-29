@@ -63,7 +63,7 @@ class LocalRepository(private val db: Database) : Repository {
     override suspend fun createTask(task: Task) {
         db.taskDao().insertTask(mapper.taskIntoEnt(task))
         for (taskTagRel in mapper.taskIntoRel(task)) {
-            db.taskTagDao().insertTaskTagRel(taskTagRel.taskId, taskTagRel.tagId)
+            db.taskTagDao().insertTaskTagRel(TaskTagRel(taskTagRel.taskId, taskTagRel.tagId))
         }
     }
 
@@ -85,11 +85,11 @@ class LocalRepository(private val db: Database) : Repository {
     }
 
     override suspend fun tagTask(taskId: UUID, tagId: UUID) {
-        db.taskTagDao().insertTaskTagRel(taskId, tagId)
+        db.taskTagDao().insertTaskTagRel(TaskTagRel(taskId, tagId))
     }
 
     override suspend fun untagTask(taskId: UUID, tagId: UUID) {
-        db.taskTagDao().deleteTaskTagRel(taskId, tagId)
+        db.taskTagDao().deleteTaskTagRel(TaskTagRel(taskId, tagId))
     }
 
     // Task >>>

@@ -8,14 +8,14 @@ import com.themakcym.gtd.data.entity.GroupEnt
 abstract class GroupDao {
 
     @Insert(onConflict=OnConflictStrategy.REPLACE)
-    abstract fun insertGroup(group: GroupEnt)
+    abstract suspend fun insertGroup(group: GroupEnt)
 
     @Update
-    abstract fun updateGroup(group: GroupEnt)
+    abstract suspend fun updateGroup(group: GroupEnt)
 
     @Delete
-    abstract fun deleteGroup(group: GroupEnt)
+    abstract suspend fun deleteGroup(group: GroupEnt)
 
     @Query("SELECT * FROM groups")
-    abstract fun selectGroups(): List<GroupEnt>
+    abstract suspend fun selectGroups(): List<GroupEnt>
 }

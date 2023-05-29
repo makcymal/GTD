@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.util.UUID
 
 
-@Entity
+@Entity(tableName = "tasks")
 data class TaskEnt (
     var taskTitle: String,
     var groupId: UUID,
