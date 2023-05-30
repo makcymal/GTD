@@ -16,4 +16,7 @@ abstract class TaskTagDao {
 
     @Query("SELECT tagId FROM tasks_to_tags WHERE taskId = :taskId")
     abstract suspend fun selectTagsByTask(taskId: UUID): List<UUID>
+
+    @Query("DELETE FROM tasks_to_tags")
+    abstract suspend fun dropTaskTagRels()
 }

@@ -18,4 +18,7 @@ abstract class GroupDao {
 
     @Query("SELECT * FROM groups")
     abstract suspend fun selectGroups(): List<GroupEnt>
+
+    @Query("DELETE FROM groups")
+    abstract suspend fun dropGroups()
 }

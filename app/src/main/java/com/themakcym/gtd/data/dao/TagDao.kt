@@ -23,4 +23,6 @@ abstract class TagDao {
     @Query("SELECT * FROM tags")
     abstract suspend fun selectTags(): List<TagEnt>
 
+    @Query("DELETE FROM tags")
+    abstract suspend fun dropTags()
 }

@@ -23,8 +23,14 @@ class DeleteTagUC(private val repo: Repository) {
     }
 }
 
-class SelectTagsUC(private val repo: Repository) {
+class GetTagsUC(private val repo: Repository) {
     suspend fun execute() : List<Tag> {
         return repo.selectTags()
+    }
+}
+
+class DropTagsUC(private val repo: Repository) {
+    suspend fun execute() {
+        repo.dropTags()
     }
 }

@@ -33,8 +33,14 @@ class DeleteGroupUC(private val repo: Repository) {
     }
 }
 
-class SelectGroupsUC(private val repo: Repository) {
+class GetGroupsUC(private val repo: Repository) {
     suspend fun execute() : List<Group> {
         return repo.selectGroups()
+    }
+}
+
+class DropGroupsUC(private val repo: Repository) {
+    suspend fun execute() {
+        repo.dropGroups()
     }
 }

@@ -5,49 +5,59 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.themakcym.gtd.di.Dep
 import com.themakcym.gtd.domain.models.Group
-import com.themakcym.gtd.domain.models.Tag
+import com.themakcym.gtd.domain.models.Task
 import com.themakcym.gtd.domain.usecases.*
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 
 class MainViewModel : ViewModel() {
 
     private val repo = Dep.repo
 
-    private val createTaskUC = CreateTaskUC(repo)
-    private val renameTaskUC = RenameTaskUC(repo)
-    private val describeTaskUC = DescribeTaskUC(repo)
-    private val moveTaskUC = MoveTaskUC(repo)
-    private val checkCompletionTaskUC = CheckCompletionTaskUC(repo)
-    private val tagTaskUC = TagTaskUC(repo)
-    private val untagTaskUC = UntagTaskUC(repo)
-    private val deleteTaskUC = DeleteTaskUC(repo)
-
-
     private val createGroupUC = CreateGroupUC(repo)
-    private val renameGroupUC = RenameGroupUC(repo)
-    private val deleteGroupUC = DeleteGroupUC(repo)
-    private val selectGroupsUC = SelectGroupsUC(repo)
+    private val getGroupsUC = GetGroupsUC(repo)
+    private val selectTasksByGroupUC = SelectTasksByGroupUC(repo)
+    private val createTaskUC = CreateTaskUC(repo)
+    private val getTasksUC = GetTasksUC(repo)
+    private val dropAllUC = DropAllUC(repo)
 
-    private val createTagUC = CreateTagUC(repo)
-    private val renameTagUC = RenameTagUC(repo)
-    private val deleteTagUc = DeleteTagUC(repo)
-    private val selectTagsUC = SelectTagsUC(repo)
-
-    // all available groups listed in TabLayout
+    private var initialized = false
+    var tasks = mutableListOf(MutableLiveData<List<Task>>())
     val groups = MutableLiveData<List<Group>>()
-    // all available tags listed between TabLayout with groups and Fragment with tasks
-    val tags = MutableLiveData<List<Tag>>()
 
-    fun selectGroups() {
-        viewModelScope.launch {
-            groups.postValue(selectGroupsUC.execute())
+    fun initialize() {
+        if (!initialized) {
+            viewModelScope.launch {
+                dropAllUC.execute()
+                val delayed = Group("Delaye", UUID.randomUUID())
+                val bucket = Group("Bucke", UUID.randomUUID())
+                createGroupUC.execute(delayed)
+                createGroupUC.execute(bucket)
+                createTaskUC.execute(Task("Go for a walk", bucket.groupId))
+                createTaskUC.execute(Task("Have a lunch", bucket.groupId))
+                createTaskUC.execute(Task("Do homework", delayed.groupId))
+                groups.postValue(getGroupsUC.execute())
+                initialized = true
+            }
         }
     }
 
-    fun selectTags() {
+    fun selectTasksByGroup(pos: Int, groupId: UUID) {
         viewModelScope.launch {
-            tags.postValue(selectTagsUC.execute())
+            tasks[pos].postValue(selectTasksByGroupUC.execute(groupId))
+        }
+    }
+
+    fun getTasks() {
+        viewModelScope.launch {
+            tasks[0].postValue(getTasksUC.execute())
+        }
+    }
+
+    fun getGroups() {
+        viewModelScope.launch {
+            groups.postValue(getGroupsUC.execute())
         }
     }
 }

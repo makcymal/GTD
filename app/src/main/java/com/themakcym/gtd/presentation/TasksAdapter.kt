@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -12,14 +13,17 @@ import com.themakcym.gtd.R
 import com.themakcym.gtd.domain.models.Task
 
 
-class TasksAdapter : ListAdapter<Task, TasksAdapter.TasksViewHolder>(
+class TasksAdapter() : ListAdapter<Task, TasksAdapter.TaskViewHolder>(
     CallBack()
 ) {
 
+    private var tasks: List<Task> = listOf()
+
+    // MainActivity context
     private lateinit var context: Context
 
     // view - CardView with single task
-    class TasksViewHolder(view: View) : ViewHolder(view) {
+    class TaskViewHolder(view: View) : ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.nameTV)
     }
 
@@ -33,14 +37,18 @@ class TasksAdapter : ListAdapter<Task, TasksAdapter.TasksViewHolder>(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
-        context = parent.context
-        val view = LayoutInflater.from(context).inflate(R.layout.task_layout, parent, false)
-        return TasksViewHolder(view)
+    fun submitTasks(tasks: List<Task>) {
+        this.tasks = tasks
     }
 
-    override fun onBindViewHolder(holder: TasksViewHolder, position: Int) {
-        holder.name.text = currentList[position].taskTitle
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
+        context = parent.context
+        val view = LayoutInflater.from(context).inflate(R.layout.task_layout, parent, false)
+        return TaskViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        holder.name.text = tasks[position].taskTitle
 //        holder.itemView.setOnClickListener {
 //            context.startActivity(TaskActivity.getIntent(context, currentList[position].taskTitle))
 //        }

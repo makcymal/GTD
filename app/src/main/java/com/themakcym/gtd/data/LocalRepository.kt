@@ -32,6 +32,10 @@ class LocalRepository(private val db: Database) : Repository {
         return groups
     }
 
+    override suspend fun dropGroups() {
+        db.groupDao().dropGroups()
+    }
+
     // Group >>>
 
     // <<< Tag
@@ -54,6 +58,10 @@ class LocalRepository(private val db: Database) : Repository {
             tags += mapper.tagFromEnt(tagEnt)
         }
         return tags
+    }
+
+    override suspend fun dropTags() {
+        db.tagDao().dropTags()
     }
 
     // Tag >>>
@@ -84,12 +92,36 @@ class LocalRepository(private val db: Database) : Repository {
         return tasks
     }
 
+    override suspend fun getTasks() : List<Task> {
+        val tasks = mutableListOf<Task>()
+        for (taskEnt in db.taskDao().getTasks()) {
+            val tagsIds = db.taskTagDao().selectTagsByTask(taskEnt.taskId)
+            tasks += mapper.taskFromEnt(taskEnt, tagsIds)
+        }
+        return tasks
+    }
+
+    override suspend fun dropTasks() {
+        db.taskDao().dropTasks()
+    }
+
     override suspend fun tagTask(taskId: UUID, tagId: UUID) {
         db.taskTagDao().insertTaskTagRel(TaskTagRel(taskId, tagId))
     }
 
     override suspend fun untagTask(taskId: UUID, tagId: UUID) {
         db.taskTagDao().deleteTaskTagRel(TaskTagRel(taskId, tagId))
+    }
+
+    override suspend fun dropTaskTagRels() {
+        db.taskTagDao().dropTaskTagRels()
+    }
+
+    override suspend fun dropAll() {
+        dropGroups()
+        dropTags()
+        dropTasks()
+        dropTaskTagRels()
     }
 
     // Task >>>

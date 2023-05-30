@@ -66,3 +66,21 @@ class SelectTasksByGroupUC(private val repo: Repository) {
         return repo.selectTasksByGroup(groupId)
     }
 }
+
+class GetTasksUC(private val repo: Repository) {
+    suspend fun execute() : List<Task> {
+        return repo.getTasks()
+    }
+}
+
+class DropTasksUC(private val repo: Repository) {
+    suspend fun execute() {
+        repo.dropTasks()
+    }
+}
+
+class DropAllUC(private val repo: Repository) {
+    suspend fun execute() {
+        repo.dropAll()
+    }
+}

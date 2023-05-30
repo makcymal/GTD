@@ -19,4 +19,10 @@ abstract class TaskDao {
 
     @Query("SELECT * FROM tasks WHERE groupId = :groupId")
     abstract suspend fun selectTasksByGroup(groupId: UUID): List<TaskEnt>
+
+    @Query("SELECT * FROM tasks")
+    abstract suspend fun getTasks(): List<TaskEnt>
+
+    @Query("DELETE FROM tasks")
+    abstract suspend fun dropTasks()
 }
