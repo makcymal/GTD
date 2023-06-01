@@ -1,4 +1,4 @@
-package com.themakcym.gtd.presentation
+package com.themakcym.gtd.presentation.viewmodels
 
 import androidx.lifecycle.*
 import com.themakcym.gtd.di.Dep
@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 
-class TasksViewModel: ViewModel() {
+class GroupViewModel: ViewModel() {
 
     var groupId: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")
 

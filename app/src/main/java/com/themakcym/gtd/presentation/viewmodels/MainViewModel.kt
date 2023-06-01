@@ -1,4 +1,4 @@
-package com.themakcym.gtd.presentation
+package com.themakcym.gtd.presentation.viewmodels
 
 import androidx.lifecycle.*
 import com.themakcym.gtd.di.Dep

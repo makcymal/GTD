@@ -34,6 +34,8 @@
 
     </androidx.viewpager2.widget.ViewPager2>
 
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/newTaskFAB"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,41 +47,3 @@
         android:src="@drawable/ic_launcher_background"
         android:contentDescription="New task" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--<LinearLayout-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:orientation="vertical"-->
-<!--    tools:context=".presentation.MainActivity"-->
-<!--    tools:ignore="HardcodedText"-->
-<!--    >-->
-
-<!--    &lt;!&ndash; tab layout with groups &ndash;&gt;-->
-<!--    <com.google.android.material.tabs.TabLayout-->
-<!--        android:id="@+id/groupsTL"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:contentDescription="Groups"-->
-<!--        app:tabMode="scrollable"-->
-<!--        >-->
-
-<!--&lt;!&ndash;        <com.google.android.material.tabs.TabItem&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:text="+"/>&ndash;&gt;-->
-
-<!--    </com.google.android.material.tabs.TabLayout>-->
-
-<!--    &lt;!&ndash; viewpager with tasks &ndash;&gt;-->
-<!--    <androidx.viewpager2.widget.ViewPager2-->
-<!--        android:id="@+id/groupsVP"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-<!--    </androidx.viewpager2.widget.ViewPager2>-->
-
-<!--</LinearLayout>-->

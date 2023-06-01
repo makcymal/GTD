@@ -1,4 +1,4 @@
-package com.themakcym.gtd.presentation
+package com.themakcym.gtd
 
 import android.app.Application
 import com.themakcym.gtd.di.Dep

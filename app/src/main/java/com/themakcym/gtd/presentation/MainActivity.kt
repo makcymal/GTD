@@ -5,12 +5,16 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import com.themakcym.gtd.databinding.ActivityMainBinding
+import com.themakcym.gtd.presentation.viewmodels.MainViewModel
+import com.themakcym.gtd.presentation.adapters.ViewPagerAdapter
+import com.themakcym.gtd.presentation.viewmodels.NewTaskViewModel
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var newTaskViewModel: NewTaskViewModel
     private lateinit var vpAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,9 +22,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        newTaskViewModel = ViewModelProvider(this)[NewTaskViewModel::class.java]
 
-        viewModel.groups.observe(this) {
+        mainViewModel.groups.observe(this) {
             binding.groupsTL.removeAllTabs()
             for (group in it) {
                 binding.groupsTL.addTab(binding.groupsTL.newTab())
@@ -34,11 +39,15 @@ class MainActivity : AppCompatActivity() {
             }.attach()
         }
 //        viewModel.getGroups()
-        viewModel.initialize()
+        mainViewModel.initialize()
+
+        newTaskViewModel.title_desc.observe(this) {
+            vpAdapter.getFragment(binding.groupsVP.currentItem).viewModel
+                .createTask(it.first, it.second)
+        }
 
         binding.newTaskFAB.setOnClickListener {
-            vpAdapter.getFragment(binding.groupsVP.currentItem).viewModel
-                .createTask("title", "description")
+            NewTaskSheet().show(supportFragmentManager, "newTaskSheet")
         }
     }
 }

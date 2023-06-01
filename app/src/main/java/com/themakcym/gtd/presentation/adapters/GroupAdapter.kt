@@ -1,4 +1,4 @@
-package com.themakcym.gtd.presentation
+package com.themakcym.gtd.presentation.adapters
 
 import android.view.*
 import android.widget.CheckBox
@@ -10,7 +10,7 @@ import com.themakcym.gtd.R
 import com.themakcym.gtd.domain.models.Task
 
 
-class TasksAdapter() : ListAdapter<Task, TasksAdapter.TaskViewHolder>(
+class GroupAdapter() : ListAdapter<Task, GroupAdapter.TaskViewHolder>(
     CallBack()
 ) {
 

@@ -5,22 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.themakcym.gtd.databinding.TasksFragmentBinding
+import com.themakcym.gtd.databinding.GroupFragmentBinding
+import com.themakcym.gtd.presentation.adapters.GroupAdapter
+import com.themakcym.gtd.presentation.viewmodels.GroupViewModel
 import java.util.UUID
 
 
-class TasksFragment(private val groupId: UUID) : Fragment() {
+class GroupFragment(private val groupId: UUID) : Fragment() {
 
-    private lateinit var binding: TasksFragmentBinding
-    lateinit var viewModel: TasksViewModel
-    private val rvAdapter = TasksAdapter()
+    private lateinit var binding: GroupFragmentBinding
+    lateinit var viewModel: GroupViewModel
+    private val rvAdapter = GroupAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
-        binding = TasksFragmentBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this)[TasksViewModel::class.java]
+        binding = GroupFragmentBinding.inflate(layoutInflater)
+        viewModel = ViewModelProvider(this)[GroupViewModel::class.java]
         viewModel.groupId = groupId
         return binding.root
     }
