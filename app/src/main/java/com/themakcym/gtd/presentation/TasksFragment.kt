@@ -2,13 +2,10 @@ package com.themakcym.gtd.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.themakcym.gtd.databinding.TasksFragmentBinding
-import com.themakcym.gtd.domain.models.*
 import java.util.UUID
 
 

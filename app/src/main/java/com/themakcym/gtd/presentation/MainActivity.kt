@@ -2,7 +2,6 @@ package com.themakcym.gtd.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import com.themakcym.gtd.databinding.ActivityMainBinding
@@ -36,9 +35,6 @@ class MainActivity : AppCompatActivity() {
         }
 //        viewModel.getGroups()
         viewModel.initialize()
-
-//        FAILS
-//        val frag = supportFragmentManager.findFragmentByTag("f" + binding.groupsVP.currentItem) as TasksFragment
 
         binding.newTaskFAB.setOnClickListener {
             vpAdapter.getFragment(binding.groupsVP.currentItem).viewModel

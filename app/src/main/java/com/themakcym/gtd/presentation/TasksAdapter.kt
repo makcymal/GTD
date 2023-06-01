@@ -1,11 +1,8 @@
 package com.themakcym.gtd.presentation
 
-import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.CheckBox
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -17,12 +14,10 @@ class TasksAdapter() : ListAdapter<Task, TasksAdapter.TaskViewHolder>(
     CallBack()
 ) {
 
-    // MainActivity context
-    private lateinit var context: Context
-
     // view - CardView with single task
-    class TaskViewHolder(view: View) : ViewHolder(view) {
+    class TaskViewHolder(val view: View) : ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.nameTV)
+        val checker: CheckBox = view.findViewById(R.id.checker)
     }
 
     class CallBack : DiffUtil.ItemCallback<Task>() {
@@ -42,8 +37,10 @@ class TasksAdapter() : ListAdapter<Task, TasksAdapter.TaskViewHolder>(
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         holder.name.text = currentList[position].taskTitle
-//        holder.itemView.setOnClickListener {
-//            context.startActivity(TaskActivity.getIntent(context, currentList[position].taskTitle))
-//        }
+        holder.checker.isChecked = currentList[position].isCompleted
+
+        holder.view.setOnClickListener {
+
+        }
     }
 }
