@@ -1,10 +1,8 @@
 package com.themakcym.gtd.data
 
-import com.themakcym.gtd.data.entity.GroupEnt
-import com.themakcym.gtd.data.entity.TagEnt
-import com.themakcym.gtd.data.entity.TaskEnt
-import com.themakcym.gtd.data.entity.TaskTagRel
+import com.themakcym.gtd.data.entity.*
 import com.themakcym.gtd.domain.models.Group
+import com.themakcym.gtd.domain.models.Subtask
 import com.themakcym.gtd.domain.models.Tag
 import com.themakcym.gtd.domain.models.Task
 import java.util.UUID
@@ -67,6 +65,24 @@ class Mapper {
             taskEnt.isCompleted,
             LocalDateTime.parse(taskEnt.taskUpdated),
             tagsIds,
+        )
+    }
+
+    fun subtaskIntoEnt(subtask: Subtask): SubtaskEnt {
+        return SubtaskEnt(
+            subtask.subtaskDetails,
+            subtask.taskId,
+            subtask.subtaskPrior,
+            subtask.isCompleted,
+        )
+    }
+
+    fun subtaskFromEnt(ent: SubtaskEnt): Subtask {
+        return Subtask(
+            ent.subtaskDetails,
+            ent.taskId,
+            ent.subtaskPrior,
+            ent.isCompleted,
         )
     }
 }

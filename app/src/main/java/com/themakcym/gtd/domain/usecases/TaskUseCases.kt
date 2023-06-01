@@ -3,6 +3,7 @@ package com.themakcym.gtd.domain.usecases
 import java.util.UUID
 import com.themakcym.gtd.domain.models.Task
 import com.themakcym.gtd.domain.Repository
+import com.themakcym.gtd.domain.models.Subtask
 import java.time.LocalDateTime
 
 
@@ -62,13 +63,13 @@ class DeleteTaskUC(private val repo: Repository) {
 }
 
 class SelectTasksByGroupUC(private val repo: Repository) {
-    suspend fun execute(groupId: UUID) : List<Task> {
+    suspend fun execute(groupId: UUID): List<Task> {
         return repo.selectTasksByGroup(groupId)
     }
 }
 
 class GetTasksUC(private val repo: Repository) {
-    suspend fun execute() : List<Task> {
+    suspend fun execute(): List<Task> {
         return repo.getTasks()
     }
 }
@@ -76,6 +77,25 @@ class GetTasksUC(private val repo: Repository) {
 class DropTasksUC(private val repo: Repository) {
     suspend fun execute() {
         repo.dropTasks()
+    }
+}
+
+class CreateSubtaskUC(private val repo: Repository) {
+    suspend fun execute(subtask: Subtask) {
+        repo.createSubtask(subtask)
+    }
+}
+
+class CheckCompletionSubtaskUC(private val repo: Repository) {
+    suspend fun execute(subtask: Subtask) {
+        subtask.isCompleted = !subtask.isCompleted
+        repo.updateSubtask(subtask)
+    }
+}
+
+class SelectSubtasksUC(private val repo: Repository) {
+    suspend fun execute(taskId: UUID): List<Subtask> {
+        return repo.selectSubtasks(taskId)
     }
 }
 

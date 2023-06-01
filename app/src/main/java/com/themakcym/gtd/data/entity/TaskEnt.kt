@@ -7,11 +7,11 @@ import java.util.UUID
 
 @Entity(tableName = "tasks")
 data class TaskEnt (
-    var taskTitle: String,
-    var groupId: UUID,
+    val taskTitle: String,
+    val groupId: UUID,
     @PrimaryKey
     val taskId: UUID,
-    var taskDesc: String,
-    var isCompleted: Boolean,
-    var taskUpdated: String
+    val taskDesc: String,
+    val isCompleted: Boolean,
+    val taskUpdated: String
 )

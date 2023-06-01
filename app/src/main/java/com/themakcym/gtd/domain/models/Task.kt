@@ -20,9 +20,4 @@ data class Task (
     fun isUndefined(): Boolean {
         return taskId == UNDEFINED_ID
     }
-
-    fun describe(desc: String): Task {
-        taskDesc = desc
-        return this
-    }
 }

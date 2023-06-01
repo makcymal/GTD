@@ -6,7 +6,7 @@ import com.themakcym.gtd.domain.Repository
 
 class InitGroupsUC(private val repo: Repository) {
     suspend fun execute() {
-        if (repo.selectGroups().isEmpty()) {
+        if (repo.getGroups().isEmpty()) {
             repo.createGroup(Group("Bucket"))
             repo.createGroup(Group("Delayed"))
         }
@@ -35,7 +35,7 @@ class DeleteGroupUC(private val repo: Repository) {
 
 class GetGroupsUC(private val repo: Repository) {
     suspend fun execute() : List<Group> {
-        return repo.selectGroups()
+        return repo.getGroups()
     }
 }
 

@@ -6,7 +6,7 @@ import com.themakcym.gtd.domain.Repository
 
 class CreateTagUC(private val repo: Repository) {
     suspend fun execute(tag: Tag) {
-        repo.insertTag(tag)
+        repo.createTag(tag)
     }
 }
 
@@ -25,7 +25,7 @@ class DeleteTagUC(private val repo: Repository) {
 
 class GetTagsUC(private val repo: Repository) {
     suspend fun execute() : List<Tag> {
-        return repo.selectTags()
+        return repo.getTags()
     }
 }
 
