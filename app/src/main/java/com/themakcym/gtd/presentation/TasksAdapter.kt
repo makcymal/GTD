@@ -17,8 +17,6 @@ class TasksAdapter() : ListAdapter<Task, TasksAdapter.TaskViewHolder>(
     CallBack()
 ) {
 
-    private var tasks: List<Task> = listOf()
-
     // MainActivity context
     private lateinit var context: Context
 
@@ -37,18 +35,13 @@ class TasksAdapter() : ListAdapter<Task, TasksAdapter.TaskViewHolder>(
         }
     }
 
-    fun submitTasks(tasks: List<Task>) {
-        this.tasks = tasks
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        context = parent.context
-        val view = LayoutInflater.from(context).inflate(R.layout.task_layout, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.task_layout, parent, false)
         return TaskViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        holder.name.text = tasks[position].taskTitle
+        holder.name.text = currentList[position].taskTitle
 //        holder.itemView.setOnClickListener {
 //            context.startActivity(TaskActivity.getIntent(context, currentList[position].taskTitle))
 //        }

@@ -35,7 +35,7 @@
     </androidx.viewpager2.widget.ViewPager2>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_task_list_button"
+        android:id="@+id/newTaskFAB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="30dp"

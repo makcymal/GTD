@@ -2,6 +2,7 @@ package com.themakcym.gtd.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import com.themakcym.gtd.databinding.ActivityMainBinding
@@ -19,36 +20,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
         viewModel.groups.observe(this) {
             binding.groupsTL.removeAllTabs()
             for (group in it) {
                 binding.groupsTL.addTab(binding.groupsTL.newTab())
             }
 
-            vpAdapter = ViewPagerAdapter(this, viewModel.tasks)
+            vpAdapter = ViewPagerAdapter(this, it)
             binding.groupsVP.adapter = vpAdapter
 
             TabLayoutMediator(binding.groupsTL, binding.groupsVP) { tab, idx ->
                 tab.text = it[idx].groupTitle
             }.attach()
         }
+//        viewModel.getGroups()
         viewModel.initialize()
-    }
 
-//    private fun initViewPager() {
-//        val vp = findViewById<ViewPager2>(R.id.groupVP)
-//        val adapter = ViewPagerAdapter(this)
-//
-//        adapter.submitList(categories)
-//        vp.adapter = adapter
-//
-//        val tb = findViewById<TabLayout>(R.id.groupsTL)
-//
-//        TabLayoutMediator(tb, vp) { tab, pos ->
-//            tab.text = categories[pos]
-//        }.attach()
-//
-//        val tab = tb.newTab().setText("+")
-//        tb.addTab(tab)
-//    }
+//        FAILS
+//        val frag = supportFragmentManager.findFragmentByTag("f" + binding.groupsVP.currentItem) as TasksFragment
+
+        binding.newTaskFAB.setOnClickListener {
+            vpAdapter.getFragment(binding.groupsVP.currentItem).viewModel
+                .createTask("title", "description")
+        }
+    }
 }
