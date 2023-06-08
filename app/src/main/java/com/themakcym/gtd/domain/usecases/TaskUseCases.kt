@@ -9,13 +9,21 @@ import java.time.LocalDateTime
 
 class CreateTaskUC(private val repo: Repository) {
     suspend fun execute(task: Task) {
+        if (task.taskTitle.isBlank()) {
+            return
+        }
+        task.taskTitle = task.taskTitle.trim().replace('\n', ' ', false)
+        task.taskDesc = task.taskDesc.trim()
         repo.createTask(task)
     }
 }
 
 class RenameTaskUC(private val repo: Repository) {
     suspend fun execute(task: Task, taskTitle: String) {
-        task.taskTitle = taskTitle
+        if (taskTitle.isBlank()) {
+            return
+        }
+        task.taskTitle = taskTitle.trim().replace('\n', ' ', false)
         task.taskUpdated = LocalDateTime.now()
         repo.updateTask(task)
     }
@@ -23,7 +31,7 @@ class RenameTaskUC(private val repo: Repository) {
 
 class DescribeTaskUC(private val repo: Repository) {
     suspend fun execute(task: Task, taskDesc: String) {
-        task.taskDesc = taskDesc
+        task.taskDesc = taskDesc.trim()
         task.taskUpdated = LocalDateTime.now()
         repo.updateTask(task)
     }
@@ -82,6 +90,7 @@ class DropTasksUC(private val repo: Repository) {
 
 class CreateSubtaskUC(private val repo: Repository) {
     suspend fun execute(subtask: Subtask) {
+        subtask.subtaskDetails = subtask.subtaskDetails.trim()
         repo.createSubtask(subtask)
     }
 }

@@ -6,9 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.MainActivity"
-    tools:ignore="HardcodedText"
-    >
+    tools:context=".presentation.MainActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/groupsTL"
@@ -18,8 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="Groups"
-        >
+        android:contentDescription="@string/groupsTabLayoutDesc">
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -44,6 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:src="@drawable/ic_launcher_background"
-        android:contentDescription="New task" />
+        android:src="@drawable/baseline_add_32"
+        app:fabCustomSize="64dp"
+        app:maxImageSize="32dp"
+        android:contentDescription="@string/newTaskFabDesc" />
 </androidx.constraintlayout.widget.ConstraintLayout>

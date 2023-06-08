@@ -4,17 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.GroupFragment"
-    tools:ignore="HardcodedText">
+    tools:context=".presentation.GroupFragment">
 
     <TextView
         android:id="@+id/groupTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
     </TextView>
 
-    <!-- recycler with task list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecycler"
         android:layout_width="match_parent"

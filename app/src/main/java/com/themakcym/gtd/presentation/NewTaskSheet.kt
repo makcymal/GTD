@@ -23,7 +23,7 @@ class NewTaskSheet : BottomSheetDialogFragment()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = NewTaskSheetBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -31,7 +31,10 @@ class NewTaskSheet : BottomSheetDialogFragment()
 
     private fun newTaskAction() {
         newTaskViewModel.title_desc.postValue(
-            Pair(binding.newTitleInput.text.toString(), binding.newDescInput.text.toString())
+            Pair(
+                binding.newTitleInput.text.toString(),
+                binding.newDescInput.text.toString()
+            )
         )
         binding.newTitleInput.setText("")
         binding.newDescInput.setText("")
