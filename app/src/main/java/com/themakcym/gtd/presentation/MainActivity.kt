@@ -38,8 +38,7 @@ class MainActivity : AppCompatActivity() {
                 tab.text = it[idx].groupTitle
             }.attach()
         }
-//        viewModel.getGroups()
-        mainViewModel.initialize()
+        mainViewModel.getGroups()
 
         newTaskViewModel.title_desc.observe(this) {
             vpAdapter.getFragment(binding.groupsVP.currentItem).viewModel

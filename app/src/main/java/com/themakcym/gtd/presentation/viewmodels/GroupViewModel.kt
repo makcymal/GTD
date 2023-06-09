@@ -16,8 +16,15 @@ class GroupViewModel: ViewModel() {
 
     private val createTaskUC = CreateTaskUC(repo)
     private val selectTasksByGroupUC = SelectTasksByGroupUC(repo)
+    private val updateTaskUC = UpdateTaskUC(repo)
 
     val tasks = MutableLiveData<List<Task>>()
+    val editedTask = MutableLiveData<Task>()
+    var editedTaskPos: Int? = null
+
+    private val selectSubtasksUC = SelectSubtasksUC(repo)
+
+    val subtasks: MutableList<List<Subtask>> = mutableListOf()
 
     fun createTask(title: String, desc: String) {
         viewModelScope.launch {
@@ -26,9 +33,20 @@ class GroupViewModel: ViewModel() {
         }
     }
 
+    fun updateTask(task: Task) {
+        viewModelScope.launch {
+            updateTaskUC.execute(task)
+            selectTasksByGroup()
+        }
+    }
+
     fun selectTasksByGroup() {
         viewModelScope.launch {
-            tasks.postValue(selectTasksByGroupUC.execute(groupId))
+            val t = selectTasksByGroupUC.execute(groupId)
+//            for (task in t) {
+//                subtasks += selectSubtasksUC.execute(task.taskId)
+//            }
+            tasks.postValue(t)
         }
     }
 }

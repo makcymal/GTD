@@ -18,6 +18,18 @@ class CreateTaskUC(private val repo: Repository) {
     }
 }
 
+class UpdateTaskUC(private val repo: Repository) {
+    suspend fun execute(task: Task) {
+        if (task.taskTitle.isBlank()) {
+            return
+        }
+        task.taskTitle = task.taskTitle.trim().replace('\n', ' ', false)
+        task.taskDesc = task.taskDesc.trim()
+        task.taskUpdated = LocalDateTime.now()
+        repo.updateTask(task)
+    }
+}
+
 class RenameTaskUC(private val repo: Repository) {
     suspend fun execute(task: Task, taskTitle: String) {
         if (taskTitle.isBlank()) {

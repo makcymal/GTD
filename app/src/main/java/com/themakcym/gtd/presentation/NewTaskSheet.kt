@@ -10,8 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.themakcym.gtd.presentation.viewmodels.NewTaskViewModel
 
 
-class NewTaskSheet : BottomSheetDialogFragment()
-{
+class NewTaskSheet : BottomSheetDialogFragment() {
     private lateinit var binding: NewTaskSheetBinding
     private lateinit var newTaskViewModel: NewTaskViewModel
 
@@ -23,8 +22,10 @@ class NewTaskSheet : BottomSheetDialogFragment()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = NewTaskSheetBinding.inflate(inflater,container,false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        binding = NewTaskSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
 

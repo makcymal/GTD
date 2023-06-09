@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.themakcym.gtd.R
 import com.themakcym.gtd.domain.models.Task
+import com.themakcym.gtd.presentation.viewmodels.GroupViewModel
 
 
-class GroupAdapter() : ListAdapter<Task, GroupAdapter.TaskViewHolder>(
+class GroupAdapter(private val viewModel: GroupViewModel) : ListAdapter<Task, GroupAdapter.TaskViewHolder>(
     CallBack()
 ) {
 
@@ -39,8 +40,10 @@ class GroupAdapter() : ListAdapter<Task, GroupAdapter.TaskViewHolder>(
         holder.name.text = currentList[position].taskTitle
         holder.checker.isChecked = currentList[position].isCompleted
 
-        holder.view.setOnClickListener {
 
+        holder.view.setOnClickListener {
+            viewModel.editedTask.postValue(currentList[position])
+            viewModel.editedTaskPos = position
         }
     }
 }

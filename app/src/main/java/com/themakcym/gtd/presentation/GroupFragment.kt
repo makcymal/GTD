@@ -1,5 +1,6 @@
 package com.themakcym.gtd.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.*
@@ -15,7 +16,7 @@ class GroupFragment(private val groupId: UUID) : Fragment() {
 
     private lateinit var binding: GroupFragmentBinding
     lateinit var viewModel: GroupViewModel
-    private val rvAdapter = GroupAdapter()
+    private lateinit var rvAdapter: GroupAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -24,6 +25,7 @@ class GroupFragment(private val groupId: UUID) : Fragment() {
         binding = GroupFragmentBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this)[GroupViewModel::class.java]
         viewModel.groupId = groupId
+        rvAdapter = GroupAdapter(viewModel)
         return binding.root
     }
 
@@ -33,9 +35,18 @@ class GroupFragment(private val groupId: UUID) : Fragment() {
         binding.tasksRecycler.adapter = rvAdapter
         binding.tasksRecycler.layoutManager = LinearLayoutManager(requireActivity())
 
-        viewModel.tasks.observe(requireActivity()) {
+        viewModel.tasks.observe(viewLifecycleOwner) {
             rvAdapter.submitList(it)
+            if (viewModel.editedTaskPos != null) {
+                rvAdapter.notifyItemChanged(viewModel.editedTaskPos!!)
+            }
         }
+
+        viewModel.editedTask.observe(viewLifecycleOwner) {
+            val taskDialog = TaskDialog(it, viewModel)
+            taskDialog.show(requireActivity().supportFragmentManager, "dialog")
+        }
+
         viewModel.selectTasksByGroup()
     }
 }
