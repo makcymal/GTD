@@ -1,10 +1,7 @@
 package com.themakcym.gtd.data
 
 import com.themakcym.gtd.data.entity.*
-import com.themakcym.gtd.domain.models.Group
-import com.themakcym.gtd.domain.models.Subtask
-import com.themakcym.gtd.domain.models.Tag
-import com.themakcym.gtd.domain.models.Task
+import com.themakcym.gtd.domain.models.*
 import java.util.UUID
 import java.time.LocalDateTime
 
@@ -19,17 +16,6 @@ class Mapper {
 
     fun groupFromEnt(ent: GroupEnt): Group {
         return Group(ent.groupTitle, ent.groupId)
-    }
-
-    fun tagIntoEnt(tag: Tag): TagEnt {
-        if (tag.isUndefined()) {
-            return TagEnt(tag.tagTitle, UUID.randomUUID())
-        }
-        return TagEnt(tag.tagTitle, tag.tagId)
-    }
-
-    fun tagFromEnt(ent: TagEnt): Tag {
-        return Tag(ent.tagTitle, ent.tagId)
     }
 
     fun taskIntoEnt(task: Task): TaskEnt {
@@ -48,15 +34,7 @@ class Mapper {
         )
     }
 
-    fun taskIntoRel(task: Task): List<TaskTagRel> {
-        val list = mutableListOf<TaskTagRel>()
-        for (tagId in task.tagsIds) {
-            list += TaskTagRel(task.taskId, tagId)
-        }
-        return list
-    }
-
-    fun taskFromEnt(taskEnt: TaskEnt, tagsIds: List<UUID>): Task {
+    fun taskFromEnt(taskEnt: TaskEnt): Task {
         return Task(
             taskEnt.taskTitle,
             taskEnt.groupId,
@@ -64,7 +42,6 @@ class Mapper {
             taskEnt.taskDesc,
             taskEnt.isCompleted,
             LocalDateTime.parse(taskEnt.taskUpdated),
-            tagsIds,
         )
     }
 

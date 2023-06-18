@@ -11,7 +11,6 @@ data class Task (
     var taskDesc: String = "",
     var isCompleted: Boolean = false,
     var taskUpdated: LocalDateTime = LocalDateTime.now(),
-    val tagsIds: List<UUID> = listOf(),
 )  {
     companion object {
         val UNDEFINED_ID: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")

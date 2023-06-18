@@ -64,18 +64,6 @@ class CheckCompletionTaskUC(private val repo: Repository) {
     }
 }
 
-class TagTaskUC(private val repo: Repository) {
-    suspend fun execute(taskId: UUID, tagId: UUID) {
-        repo.tagTask(taskId, tagId)
-    }
-}
-
-class UntagTaskUC(private val repo: Repository) {
-    suspend fun execute(taskId: UUID, tagId: UUID) {
-        repo.untagTask(taskId, tagId)
-    }
-}
-
 class DeleteTaskUC(private val repo: Repository) {
     suspend fun execute(task: Task) {
         repo.deleteTask(task)

@@ -1,6 +1,5 @@
 package com.themakcym.gtd.data
 
-import com.themakcym.gtd.data.entity.TaskTagRel
 import com.themakcym.gtd.domain.Repository
 import com.themakcym.gtd.domain.models.*
 import java.util.*
@@ -38,41 +37,11 @@ class LocalRepository(private val db: Database) : Repository {
 
     // Group >>>
 
-    // <<< Tag
-
-    override suspend fun createTag(tag: Tag) {
-        db.tagDao().insertTag(mapper.tagIntoEnt(tag))
-    }
-
-    override suspend fun updateTag(tag: Tag) {
-        db.tagDao().updateTag(mapper.tagIntoEnt(tag))
-    }
-
-    override suspend fun deleteTag(tag: Tag) {
-        db.tagDao().deleteTag(mapper.tagIntoEnt(tag))
-    }
-
-    override suspend fun getTags(): List<Tag> {
-        val tags = mutableListOf<Tag>()
-        for (tagEnt in db.tagDao().selectTags()) {
-            tags += mapper.tagFromEnt(tagEnt)
-        }
-        return tags
-    }
-
-    override suspend fun dropTags() {
-        db.tagDao().dropTags()
-    }
-
-    // Tag >>>
 
     // <<< Task
 
     override suspend fun createTask(task: Task) {
         db.taskDao().insertTask(mapper.taskIntoEnt(task))
-        for (taskTagRel in mapper.taskIntoRel(task)) {
-            db.taskTagDao().insertTaskTagRel(TaskTagRel(taskTagRel.taskId, taskTagRel.tagId))
-        }
     }
 
     override suspend fun updateTask(task: Task) {
@@ -86,8 +55,7 @@ class LocalRepository(private val db: Database) : Repository {
     override suspend fun selectTasksByGroup(groupId: UUID): List<Task> {
         val tasks = mutableListOf<Task>()
         for (taskEnt in db.taskDao().selectTasksByGroup(groupId)) {
-            val tagsIds = db.taskTagDao().selectTagsByTask(taskEnt.taskId)
-            tasks += mapper.taskFromEnt(taskEnt, tagsIds)
+            tasks += mapper.taskFromEnt(taskEnt)
         }
         return tasks
     }
@@ -95,26 +63,13 @@ class LocalRepository(private val db: Database) : Repository {
     override suspend fun getTasks(): List<Task> {
         val tasks = mutableListOf<Task>()
         for (taskEnt in db.taskDao().getTasks()) {
-            val tagsIds = db.taskTagDao().selectTagsByTask(taskEnt.taskId)
-            tasks += mapper.taskFromEnt(taskEnt, tagsIds)
+            tasks += mapper.taskFromEnt(taskEnt)
         }
         return tasks
     }
 
     override suspend fun dropTasks() {
         db.taskDao().dropTasks()
-    }
-
-    override suspend fun tagTask(taskId: UUID, tagId: UUID) {
-        db.taskTagDao().insertTaskTagRel(TaskTagRel(taskId, tagId))
-    }
-
-    override suspend fun untagTask(taskId: UUID, tagId: UUID) {
-        db.taskTagDao().deleteTaskTagRel(TaskTagRel(taskId, tagId))
-    }
-
-    override suspend fun dropTaskTagRels() {
-        db.taskTagDao().dropTaskTagRels()
     }
 
     override suspend fun createSubtask(subtask: Subtask) {
@@ -135,9 +90,7 @@ class LocalRepository(private val db: Database) : Repository {
 
     override suspend fun dropAll() {
         dropGroups()
-        dropTags()
         dropTasks()
-        dropTaskTagRels()
     }
 
     // Task >>>
