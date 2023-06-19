@@ -25,28 +25,29 @@ class GroupFragment(private val groupId: UUID) : Fragment() {
         binding = GroupFragmentBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this)[GroupViewModel::class.java]
         viewModel.groupId = groupId
-        rvAdapter = GroupAdapter(viewModel)
+        rvAdapter = GroupAdapter(viewModel, requireActivity())
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tasksRecycler.adapter = rvAdapter
         binding.tasksRecycler.layoutManager = LinearLayoutManager(requireActivity())
 
-        viewModel.tasks.observe(viewLifecycleOwner) {
-            rvAdapter.submitList(it)
-            if (viewModel.editedTaskPos != null) {
-                rvAdapter.notifyItemChanged(viewModel.editedTaskPos!!)
-            }
+        viewModel.initialized.observe(viewLifecycleOwner) {
+            rvAdapter.submitList(viewModel.tasks)
         }
-
-        viewModel.editedTask.observe(viewLifecycleOwner) {
-            val taskDialog = TaskDialog(it, viewModel)
-            taskDialog.show(requireActivity().supportFragmentManager, "taskDialog")
-        }
-
         viewModel.selectTasksByGroup()
+
+        viewModel.editedPosition.observe(viewLifecycleOwner) {
+            rvAdapter.notifyItemChanged(it)
+        }
+
+//        viewModel.deletedPosition.observe(viewLifecycleOwner) {
+//            rvAdapter.submitList(viewModel.tasks)
+//            rvAdapter.notifyDataSetChanged()
+//        }
     }
 }

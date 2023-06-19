@@ -3,40 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/editTaskToolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/red">
+        android:background="@color/red"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:src="@drawable/baseline_close_32"
-                android:background="@color/red"
                 android:id="@+id/taskDialogCancelBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/red"
                 android:contentDescription="@string/taskDialogCloseBtnDesc"
-                android:layout_gravity="center_vertical"/>
+                android:src="@drawable/baseline_close_32" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
                 android:text="@string/taskDialogHeader"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginStart="15dp"
-                android:layout_gravity="center_vertical"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -44,19 +43,19 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:id="@+id/editTaskTitleInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTaskToolbar"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="20dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTaskToolbar">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTaskTitleInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/editTaskTitleInput"
             android:hint="@string/newTaskTitleInputHint">
 
         </com.google.android.material.textfield.TextInputEditText>
@@ -65,19 +64,19 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:id="@+id/editTaskDescInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTaskTitleInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="20dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTaskTitleInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTaskDescInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/editTaskDescInput"
             android:hint="@string/newTaskDescInputHint">
 
         </com.google.android.material.textfield.TextInputEditText>
@@ -92,9 +91,10 @@
         android:layout_margin="20dp"
         android:gravity="center"
         android:padding="8dp"
+        android:text="@string/moveToTrash"
+        android:textAllCaps="true"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textAllCaps="true"
         app:backgroundTint="@color/white"
         app:icon="@drawable/baseline_trash_32"
         app:iconGravity="textStart"
@@ -104,21 +104,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTaskDescInputLayout"
         app:strokeColor="@color/red"
-        app:strokeWidth="2dp"
-        tools:text="@string/moveToTrash" />
+        app:strokeWidth="2dp" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/editTaskFab"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="32dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="32dp"
         android:clickable="true"
+        android:contentDescription="@string/taskDialogSubmitBtnDesc"
         android:src="@drawable/baseline_check_32"
         app:fabCustomSize="64dp"
-        app:maxImageSize="32dp"
-        android:contentDescription="@string/taskDialogSubmitBtnDesc" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="32dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

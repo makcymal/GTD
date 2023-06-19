@@ -11,7 +11,11 @@ import com.themakcym.gtd.presentation.viewmodels.GroupViewModel
 import com.themakcym.gtd.R
 
 
-class TaskDialog(private val task: Task, private val viewModel: GroupViewModel) : DialogFragment() {
+class TaskDialog(
+    private val task: Task,
+    private val viewModel: GroupViewModel,
+    private val position: Int
+) : DialogFragment() {
 
     private lateinit var binding: TaskDialogBinding
 
@@ -36,11 +40,16 @@ class TaskDialog(private val task: Task, private val viewModel: GroupViewModel) 
         binding.editTaskFab.setOnClickListener {
             task.taskTitle = binding.editTaskTitleInput.text.toString()
             task.taskDesc = binding.editTaskDescInput.text.toString()
-            viewModel.updateTask(task)
+            viewModel.updateTask(task, position)
             dismiss()
         }
 
         binding.taskDialogCancelBtn.setOnClickListener {
+            dismiss()
+        }
+
+        binding.moveTaskToTrashBtn.setOnClickListener {
+            viewModel.deleteTask(task, position)
             dismiss()
         }
     }

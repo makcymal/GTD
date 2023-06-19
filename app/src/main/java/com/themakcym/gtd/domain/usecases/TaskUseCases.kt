@@ -56,7 +56,7 @@ class MoveTaskUC(private val repo: Repository) {
     }
 }
 
-class CheckCompletionTaskUC(private val repo: Repository) {
+class CheckTaskUC(private val repo: Repository) {
     suspend fun execute(task: Task) {
         task.isCompleted = !task.isCompleted
         task.taskUpdated = LocalDateTime.now()
@@ -95,7 +95,7 @@ class CreateSubtaskUC(private val repo: Repository) {
     }
 }
 
-class CheckCompletionSubtaskUC(private val repo: Repository) {
+class CheckSubtaskUC(private val repo: Repository) {
     suspend fun execute(subtask: Subtask) {
         subtask.isCompleted = !subtask.isCompleted
         repo.updateSubtask(subtask)
