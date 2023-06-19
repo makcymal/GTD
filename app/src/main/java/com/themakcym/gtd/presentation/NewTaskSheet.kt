@@ -30,7 +30,7 @@ class NewTaskSheet : BottomSheetDialogFragment() {
     }
 
     private fun newTaskAction() {
-        viewModel.new_task.postValue(
+        viewModel.newTask.postValue(
             Pair(
                 binding.newTaskTitleInput.text.toString(),
                 binding.newTaskDescInput.text.toString()

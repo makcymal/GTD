@@ -13,16 +13,14 @@ class InitGroupsUC(private val repo: Repository) {
     }
 }
 
-
 class CreateGroupUC(private val repo: Repository) {
     suspend fun execute(group: Group) {
         repo.createGroup(group)
     }
 }
 
-class RenameGroupUC(private val repo: Repository) {
-    suspend fun execute(group: Group, groupTitle: String) {
-        group.groupTitle = groupTitle
+class UpdateGroupUC(private val repo: Repository) {
+    suspend fun execute(group: Group) {
         repo.updateGroup(group)
     }
 }

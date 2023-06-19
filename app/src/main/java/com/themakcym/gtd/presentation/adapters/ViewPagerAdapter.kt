@@ -5,9 +5,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.themakcym.gtd.domain.models.*
 import com.themakcym.gtd.presentation.GroupFragment
+import java.util.UUID
 
 
-class ViewPagerAdapter(fragmentActivity: FragmentActivity, private var groups: List<Group>) :
+class ViewPagerAdapter(fragmentActivity: FragmentActivity, private val groups: List<Group>) :
     FragmentStateAdapter(fragmentActivity) {
 
     private val fragments = arrayOfNulls<GroupFragment>(groups.count())
@@ -16,9 +17,9 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity, private var groups: L
         return groups.count()
     }
 
-    override fun createFragment(pos: Int): Fragment {
-        fragments[pos] = GroupFragment(groups[pos].groupId)
-        return fragments[pos]!!
+    override fun createFragment(position: Int): Fragment {
+        fragments[position] = GroupFragment(groups[position].groupId)
+        return fragments[position]!!
     }
 
     fun getFragment(position: Int): GroupFragment {
@@ -26,5 +27,9 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity, private var groups: L
             fragments[position] = GroupFragment(groups[position].groupId)
         }
         return fragments[position]!!
+    }
+
+    fun groupAt(position: Int): Group {
+        return groups[position]
     }
 }

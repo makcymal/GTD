@@ -5,7 +5,7 @@
         android:layout_height="wrap_content"
     </style>
 
-    <style name="EditTaskStyle">
+    <style name="DialogStyle">
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowIsFloating">false</item>
     </style>

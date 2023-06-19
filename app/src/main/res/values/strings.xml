@@ -4,6 +4,10 @@
     <string name="groupsTabLayoutDesc">Groups tabs</string>
     <string name="newGroupSheetHeader">new group</string>
     <string name="newGroupTitleInputHint">title</string>
+
+    <string name="groupDialogSubmitBtnDesc">Edit group</string>
+    <string name="groupDialogCloseBtnDesc">Cancel group editing</string>
+    <string name="groupDialogHeader">EDIT GROUP</string>
     
     <string name="newTaskFabDesc">Create new task</string>
     <string name="newTaskSheetHeader">new task</string>
@@ -19,4 +23,6 @@
     <string name="menuItemEditGroupDesc">Edit group</string>
     <string name="menuItemOnlyStarredTasksDesc">Filter starred tasks</string>
     <string name="menuItemOnlyUncompletedTasksDesc">Filter uncompleted tasks</string>
+
+    <string name="moveToTrash">move to trash</string>
 </resources>

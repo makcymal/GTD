@@ -44,7 +44,7 @@ class GroupFragment(private val groupId: UUID) : Fragment() {
 
         viewModel.editedTask.observe(viewLifecycleOwner) {
             val taskDialog = TaskDialog(it, viewModel)
-            taskDialog.show(requireActivity().supportFragmentManager, "dialog")
+            taskDialog.show(requireActivity().supportFragmentManager, "taskDialog")
         }
 
         viewModel.selectTasksByGroup()

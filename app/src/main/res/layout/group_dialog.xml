@@ -1,62 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/editTaskToolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/editGroupToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/red">
+        android:background="@color/red"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:src="@drawable/baseline_close_32"
-                android:background="@color/red"
-                android:id="@+id/taskDialogCancelBtn"
+                android:id="@+id/groupDialogCancelBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/taskDialogCloseBtnDesc"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:background="@color/red"
+                android:contentDescription="@string/groupDialogCloseBtnDesc"
+                android:src="@drawable/baseline_close_32" />
 
             <TextView
+                android:id="@+id/groupDialogHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/taskDialogHeader"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:text="@string/groupDialogHeader"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginStart="15dp"
-                android:layout_gravity="center_vertical"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
-
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editGroupTitleInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:id="@+id/editTaskTitleInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTaskToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="20dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editGroupToolbar">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editGroupTitleInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/editTaskTitleInput"
             android:hint="@string/newTaskTitleInputHint">
 
         </com.google.android.material.textfield.TextInputEditText>
@@ -64,29 +63,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:id="@+id/editTaskDescInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTaskTitleInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="20dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/editTaskDescInput"
-            android:hint="@string/newTaskDescInputHint">
-
-        </com.google.android.material.textfield.TextInputEditText>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/moveTaskToTrashBtn"
+        android:id="@+id/moveGroupToTrashBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -94,7 +72,6 @@
         android:padding="8dp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textAllCaps="true"
         app:backgroundTint="@color/white"
         app:icon="@drawable/baseline_trash_32"
         app:iconGravity="textStart"
@@ -102,23 +79,23 @@
         app:iconTint="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTaskDescInputLayout"
+        app:layout_constraintTop_toBottomOf="@id/editGroupTitleInputLayout"
         app:strokeColor="@color/red"
         app:strokeWidth="2dp"
         tools:text="@string/moveToTrash" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/editTaskFab"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="32dp"
+        android:id="@+id/editGroupFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="32dp"
         android:clickable="true"
+        android:contentDescription="@string/groupDialogSubmitBtnDesc"
         android:src="@drawable/baseline_check_32"
         app:fabCustomSize="64dp"
-        app:maxImageSize="32dp"
-        android:contentDescription="@string/taskDialogSubmitBtnDesc" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="32dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

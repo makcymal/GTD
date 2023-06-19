@@ -14,6 +14,7 @@ class MainViewModel : ViewModel() {
 
     private val createGroupUC = CreateGroupUC(repo)
     private val getGroupsUC = GetGroupsUC(repo)
+    private val updateGroupUC = UpdateGroupUC(repo)
     private val dropAllUC = DropAllUC(repo)
 
     private var initialized = false
@@ -46,6 +47,13 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    val new_task = MutableLiveData<Pair<String, String>>()
-    val new_group = MutableLiveData<String>()
+    fun updateGroup(group: Group) {
+        viewModelScope.launch {
+            updateGroupUC.execute(group)
+            groups.postValue(getGroupsUC.execute())
+        }
+    }
+
+    val newTask = MutableLiveData<Pair<String, String>>()
+    val newGroup = MutableLiveData<String>()
 }

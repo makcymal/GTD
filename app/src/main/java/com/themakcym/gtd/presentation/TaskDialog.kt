@@ -24,23 +24,23 @@ class TaskDialog(private val task: Task, private val viewModel: GroupViewModel) 
     }
 
     override fun getTheme(): Int {
-        return R.style.EditTaskStyle
+        return R.style.DialogStyle
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.editTitleInput.setText(task.taskTitle)
-        binding.editDescInput.setText(task.taskDesc)
+        binding.editTaskTitleInput.setText(task.taskTitle)
+        binding.editTaskDescInput.setText(task.taskDesc)
 
-        binding.editTaskFAB.setOnClickListener {
-            task.taskTitle = binding.editTitleInput.text.toString()
-            task.taskDesc = binding.editDescInput.text.toString()
+        binding.editTaskFab.setOnClickListener {
+            task.taskTitle = binding.editTaskTitleInput.text.toString()
+            task.taskDesc = binding.editTaskDescInput.text.toString()
             viewModel.updateTask(task)
             dismiss()
         }
 
-        binding.dialogCancelBtn.setOnClickListener {
+        binding.taskDialogCancelBtn.setOnClickListener {
             dismiss()
         }
     }

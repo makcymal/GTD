@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.getGroups()
 
 
-        viewModel.new_group.observe(this) {
+        viewModel.newGroup.observe(this) {
             viewModel.createGroup(it)
         }
         binding.newGroupBtn.setOnClickListener {
@@ -48,7 +48,12 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        viewModel.new_task.observe(this) {
+        binding.editGroupBtn.setOnClickListener {
+            val groupDialog = GroupDialog(vpAdapter.groupAt(binding.groupsVP.currentItem), viewModel)
+            groupDialog.show(supportFragmentManager, "groupDialog")
+        }
+
+        viewModel.newTask.observe(this) {
             vpAdapter.getFragment(binding.groupsVP.currentItem).viewModel
                 .createTask(it.first, it.second)
         }

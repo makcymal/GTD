@@ -30,7 +30,7 @@ class NewGroupSheet : BottomSheetDialogFragment() {
     }
 
     private fun newGroupAction() {
-        viewModel.new_group.postValue(
+        viewModel.newGroup.postValue(
                 binding.newGroupTitleInput.text.toString()
         )
         binding.newGroupTitleInput.setText("")
