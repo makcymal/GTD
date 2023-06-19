@@ -1,12 +1,20 @@
 <resources>
     <string name="appName">GTD</string>
-    <string name="newTaskFabDesc">Create new task</string>
-    <string name="editTaskFabDesc">Edit task</string>
+
     <string name="groupsTabLayoutDesc">Groups tabs</string>
-    <string name="newTaskLogic">new task</string>
-    <string name="taskTitleInputHint">title</string>
-    <string name="taskDescInputHint">description</string>
-    <string name="newTaskBtnText">create</string>
+    
+    <string name="newTaskFabDesc">Create new task</string>
+    <string name="newTaskSheetHeader">new task</string>
+    <string name="newTaskTitleInputHint">title</string>
+    <string name="newTaskDescInputHint">description</string>
+    <string name="newTaskSubmitBtnText">create</string>
+    
+    <string name="taskDialogSubmitBtnDesc">Edit task</string>
     <string name="taskDialogCloseBtnDesc">Cancel task editing</string>
-    <string name="taskDialogLogic">EDIT TASK</string>
+    <string name="taskDialogHeader">EDIT TASK</string>
+    
+    <string name="menuItemNewGroupDesc">New group</string>
+    <string name="menuItemEditGroupDesc">Edit group</string>
+    <string name="menuItemOnlyStarredTasksDesc">Filter starred tasks</string>
+    <string name="menuItemOnlyUncompletedTasksDesc">Filter uncompleted tasks</string>
 </resources>

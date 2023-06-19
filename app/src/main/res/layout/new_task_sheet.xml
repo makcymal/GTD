@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/newTaskLogic"
+        android:text="@string/newTaskSheetHeader"
         android:textSize="30sp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/newTitleInput"
-            android:hint="@string/taskTitleInputHint"/>
+            android:hint="@string/newTaskTitleInputHint"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/newDescInput"
-            android:hint="@string/taskDescInputHint">
+            android:hint="@string/newTaskDescInputHint">
 
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -56,7 +56,7 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="@color/red"
-        android:text="@string/newTaskBtnText"
+        android:text="@string/newTaskSubmitBtnText"
         android:textStyle="bold"/>
 
 </LinearLayout>

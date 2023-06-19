@@ -38,14 +38,15 @@ class MainActivity : AppCompatActivity() {
                 tab.text = it[idx].groupTitle
             }.attach()
         }
-        mainViewModel.getGroups()
+        mainViewModel.initialize()
+//        mainViewModel.getGroups()
 
         newTaskViewModel.title_desc.observe(this) {
             vpAdapter.getFragment(binding.groupsVP.currentItem).viewModel
                 .createTask(it.first, it.second)
         }
 
-        binding.newTaskFAB.setOnClickListener {
+        binding.newTaskFab.setOnClickListener {
             NewTaskSheet().show(supportFragmentManager, "newTaskSheet")
         }
     }
