@@ -38,4 +38,14 @@ class MainViewModel : ViewModel() {
             groups.postValue(getGroupsUC.execute())
         }
     }
+
+    fun createGroup(title: String) {
+        viewModelScope.launch {
+            createGroupUC.execute(Group(title))
+            groups.postValue(getGroupsUC.execute())
+        }
+    }
+
+    val new_task = MutableLiveData<Pair<String, String>>()
+    val new_group = MutableLiveData<String>()
 }

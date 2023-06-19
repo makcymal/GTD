@@ -5,39 +5,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.themakcym.gtd.databinding.NewTaskSheetBinding
+import com.themakcym.gtd.databinding.NewGroupSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.themakcym.gtd.presentation.viewmodels.MainViewModel
 
 
-class NewTaskSheet : BottomSheetDialogFragment() {
-    private lateinit var binding: NewTaskSheetBinding
+class NewGroupSheet : BottomSheetDialogFragment() {
+    private lateinit var binding: NewGroupSheetBinding
     private lateinit var viewModel: MainViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        binding.createTaskBtn.setOnClickListener {
-            newTaskAction()
+        binding.createGroupBtn.setOnClickListener {
+            newGroupAction()
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = NewTaskSheetBinding.inflate(inflater, container, false)
+        binding = NewGroupSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    private fun newTaskAction() {
-        viewModel.new_task.postValue(
-            Pair(
-                binding.newTaskTitleInput.text.toString(),
-                binding.newTaskDescInput.text.toString()
-            )
+    private fun newGroupAction() {
+        viewModel.new_group.postValue(
+                binding.newGroupTitleInput.text.toString()
         )
-        binding.newTaskTitleInput.setText("")
-        binding.newTaskDescInput.setText("")
+        binding.newGroupTitleInput.setText("")
         dismiss()
     }
 }

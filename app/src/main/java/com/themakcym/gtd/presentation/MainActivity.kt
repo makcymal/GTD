@@ -7,14 +7,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.themakcym.gtd.databinding.ActivityMainBinding
 import com.themakcym.gtd.presentation.viewmodels.MainViewModel
 import com.themakcym.gtd.presentation.adapters.ViewPagerAdapter
-import com.themakcym.gtd.presentation.viewmodels.NewTaskViewModel
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
-    private lateinit var newTaskViewModel: NewTaskViewModel
+    private lateinit var viewModel: MainViewModel
     private lateinit var vpAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,10 +20,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        newTaskViewModel = ViewModelProvider(this)[NewTaskViewModel::class.java]
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        mainViewModel.groups.observe(this) {
+
+        viewModel.groups.observe(this) {
             binding.groupsTL.removeAllTabs()
             for (group in it) {
                 binding.groupsTL.addTab(binding.groupsTL.newTab())
@@ -38,14 +36,22 @@ class MainActivity : AppCompatActivity() {
                 tab.text = it[idx].groupTitle
             }.attach()
         }
-        mainViewModel.initialize()
-//        mainViewModel.getGroups()
+//        viewModel.initialize()
+        viewModel.getGroups()
 
-        newTaskViewModel.title_desc.observe(this) {
+
+        viewModel.new_group.observe(this) {
+            viewModel.createGroup(it)
+        }
+        binding.newGroupBtn.setOnClickListener {
+            NewGroupSheet().show(supportFragmentManager, "newGroupSheet")
+        }
+
+
+        viewModel.new_task.observe(this) {
             vpAdapter.getFragment(binding.groupsVP.currentItem).viewModel
                 .createTask(it.first, it.second)
         }
-
         binding.newTaskFab.setOnClickListener {
             NewTaskSheet().show(supportFragmentManager, "newTaskSheet")
         }

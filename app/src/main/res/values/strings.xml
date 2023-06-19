@@ -2,12 +2,14 @@
     <string name="appName">GTD</string>
 
     <string name="groupsTabLayoutDesc">Groups tabs</string>
+    <string name="newGroupSheetHeader">new group</string>
+    <string name="newGroupTitleInputHint">title</string>
     
     <string name="newTaskFabDesc">Create new task</string>
     <string name="newTaskSheetHeader">new task</string>
     <string name="newTaskTitleInputHint">title</string>
     <string name="newTaskDescInputHint">description</string>
-    <string name="newTaskSubmitBtnText">create</string>
+    <string name="createBtnText">create</string>
     
     <string name="taskDialogSubmitBtnDesc">Edit task</string>
     <string name="taskDialogCloseBtnDesc">Cancel task editing</string>
