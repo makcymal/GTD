@@ -1,8 +1,10 @@
 package com.themakcym.gtd.presentation
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.themakcym.gtd.databinding.ActivityMainBinding
 import com.themakcym.gtd.presentation.viewmodels.MainViewModel
@@ -36,7 +38,6 @@ class MainActivity : AppCompatActivity() {
                 tab.text = it[idx].groupTitle
             }.attach()
         }
-//        viewModel.initialize()
         viewModel.getGroups()
 
 
@@ -49,7 +50,8 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.editGroupBtn.setOnClickListener {
-            val groupDialog = GroupDialog(vpAdapter.groupAt(binding.groupsVP.currentItem), viewModel)
+            val groupDialog =
+                GroupDialog(vpAdapter.groupAt(binding.groupsVP.currentItem), viewModel)
             groupDialog.show(supportFragmentManager, "groupDialog")
         }
 
@@ -58,7 +60,12 @@ class MainActivity : AppCompatActivity() {
                 .createTask(it.first, it.second)
         }
         binding.newTaskFab.setOnClickListener {
-            NewTaskSheet().show(supportFragmentManager, "newTaskSheet")
+            if (vpAdapter.itemCount > 0) {
+                NewTaskSheet().show(supportFragmentManager, "newTaskSheet")
+            } else {
+                val snack = Snackbar.make(binding.root, "First you should create group", 1200)
+                snack.show()
+            }
         }
     }
 }

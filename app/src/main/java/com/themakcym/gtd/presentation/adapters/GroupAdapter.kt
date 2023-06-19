@@ -39,19 +39,16 @@ class GroupAdapter(private val viewModel: GroupViewModel, private val activity: 
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-//        holder.name.text = currentList[position].taskTitle
-        holder.name.text = position.toString()
-        holder.checker.isChecked = currentList[position].isCompleted
-
-//        println("inside item at $position")
+        holder.name.text = currentList[holder.adapterPosition].taskTitle
+        holder.checker.isChecked = currentList[holder.adapterPosition].isCompleted
 
         holder.view.setOnClickListener {
-            val taskDialog = TaskDialog(currentList[position], viewModel, position)
+            val taskDialog = TaskDialog(currentList[holder.adapterPosition], viewModel, holder.adapterPosition)
             taskDialog.show(activity.supportFragmentManager, "taskDialog")
         }
 
         holder.checker.setOnClickListener {
-            viewModel.checkTask(currentList[position], position)
+            viewModel.checkTask(currentList[holder.adapterPosition], holder.adapterPosition)
         }
     }
 }

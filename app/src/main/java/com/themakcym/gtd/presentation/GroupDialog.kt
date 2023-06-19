@@ -41,5 +41,10 @@ class GroupDialog(private val group: Group, private val viewModel: MainViewModel
         binding.groupDialogCancelBtn.setOnClickListener {
             dismiss()
         }
+
+        binding.moveGroupToTrashBtn.setOnClickListener {
+            viewModel.deleteGroup(group)
+            dismiss()
+        }
     }
 }

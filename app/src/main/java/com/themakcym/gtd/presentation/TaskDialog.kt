@@ -49,7 +49,7 @@ class TaskDialog(
         }
 
         binding.moveTaskToTrashBtn.setOnClickListener {
-            viewModel.deleteTask(task, position)
+            viewModel.deleteTask(task)
             dismiss()
         }
     }

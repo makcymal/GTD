@@ -26,7 +26,6 @@ class GroupViewModel: ViewModel() {
 
     val initialized = MutableLiveData(false)
     val editedPosition = MutableLiveData(0)
-    val deletedPosition = MutableLiveData(0)
 
     fun createTask(title: String, desc: String) {
         viewModelScope.launch {
@@ -59,11 +58,10 @@ class GroupViewModel: ViewModel() {
         }
     }
 
-    fun deleteTask(task: Task, position: Int) {
+    fun deleteTask(task: Task) {
         viewModelScope.launch {
             deleteTaskUC.execute(task)
             selectTasksByGroup()
-            deletedPosition.postValue(position)
         }
     }
 }

@@ -15,6 +15,7 @@ class MainViewModel : ViewModel() {
     private val createGroupUC = CreateGroupUC(repo)
     private val getGroupsUC = GetGroupsUC(repo)
     private val updateGroupUC = UpdateGroupUC(repo)
+    private val deleteGroupUC = DeleteGroupUC(repo)
     private val dropAllUC = DropAllUC(repo)
 
     private var initialized = false
@@ -51,6 +52,13 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch {
             updateGroupUC.execute(group)
             groups.postValue(getGroupsUC.execute())
+        }
+    }
+
+    fun deleteGroup(group: Group) {
+        viewModelScope.launch {
+            deleteGroupUC.execute(group)
+            getGroups()
         }
     }
 

@@ -29,7 +29,6 @@ class GroupFragment(private val groupId: UUID) : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -44,10 +43,5 @@ class GroupFragment(private val groupId: UUID) : Fragment() {
         viewModel.editedPosition.observe(viewLifecycleOwner) {
             rvAdapter.notifyItemChanged(it)
         }
-
-//        viewModel.deletedPosition.observe(viewLifecycleOwner) {
-//            rvAdapter.submitList(viewModel.tasks)
-//            rvAdapter.notifyDataSetChanged()
-//        }
     }
 }
