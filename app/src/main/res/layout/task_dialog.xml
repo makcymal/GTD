@@ -42,6 +42,17 @@
     </androidx.appcompat.widget.Toolbar>
 
 
+    <TextView
+        android:id="@+id/updatedTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTaskToolbar" />
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTaskTitleInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -50,7 +61,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTaskToolbar">
+        app:layout_constraintTop_toBottomOf="@id/updatedTV">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTaskTitleInput"
@@ -113,7 +124,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="@string/subtasksHeader"
-        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textColor="@color/gray"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/moveTaskToTrashBtn" />

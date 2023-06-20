@@ -35,15 +35,15 @@ class Mapper {
         )
     }
 
-    fun taskFromEnt(taskEnt: TaskEnt): Task {
+    fun taskFromEnt(ent: TaskEnt): Task {
         return Task(
-            taskEnt.taskTitle,
-            taskEnt.groupId,
-            taskEnt.taskId,
-            taskEnt.taskDesc,
-            taskEnt.isCompleted,
-            taskEnt.isStarred,
-            LocalDateTime.parse(taskEnt.taskUpdated),
+            ent.taskTitle,
+            ent.groupId,
+            ent.taskId,
+            ent.taskDesc,
+            ent.isCompleted,
+            ent.isStarred,
+            LocalDateTime.parse(ent.taskUpdated),
         )
     }
 

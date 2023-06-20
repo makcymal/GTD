@@ -44,9 +44,9 @@ class GroupAdapter(private val viewModel: GroupViewModel, private val activity: 
         holder.checker.isChecked = currentList[holder.adapterPosition].isCompleted
         holder.name.text = currentList[holder.adapterPosition].taskTitle
         if (currentList[holder.adapterPosition].isStarred) {
-            holder.star.setImageResource(R.drawable.baseline_star_outline_40)
+            holder.star.setImageResource(R.drawable.baseline_star_32)
         } else {
-            holder.star.setImageResource(R.drawable.baseline_star_40)
+            holder.star.setImageResource(R.drawable.baseline_star_outline_32)
         }
 
         holder.checker.setOnClickListener {
@@ -59,7 +59,7 @@ class GroupAdapter(private val viewModel: GroupViewModel, private val activity: 
         }
 
         holder.star.setOnClickListener {
-            viewModel.starTask(currentList[holder.adapterPosition])
+            viewModel.starTask(currentList[holder.adapterPosition], holder.adapterPosition)
         }
     }
 }

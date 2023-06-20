@@ -8,14 +8,14 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 
-class GroupViewModel: ViewModel() {
+class GroupViewModel : ViewModel() {
 
-    var groupId = UUID.fromString("00000000-0000-0000-0000-000000000000")
+    var groupId: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")
 
     private val repo = Dep.repo
 
     private val createTaskUC = CreateTaskUC(repo)
-    private val retrieveTaskUC = RetrieveGroupUC(repo)
+    private val retrieveTaskUC = RetrieveTaskUC(repo)
     private val updateTaskUC = UpdateTaskUC(repo)
     private val deleteTaskUC = DeleteTaskUC(repo)
     private val checkTaskUC = CheckTaskUC(repo)
@@ -42,19 +42,10 @@ class GroupViewModel: ViewModel() {
         }
     }
 
-    fun selectTasksByGroup() {
-        viewModelScope.launch {
-            tasks = selectTasksByGroupUC.execute(groupId) as MutableList<Task>
-            for (task in tasks) {
-                subtasks += selectSubtasksByTaskUC.execute(task.taskId) as MutableList<Subtask>
-            }
-            notifier.postValue(true)
-        }
-    }
-
     fun updateTask(task: Task, position: Int) {
         viewModelScope.launch {
             updateTaskUC.execute(task)
+            tasks[position] = retrieveTaskUC.execute(task.taskId)
             editedTaskPos.postValue(position)
         }
     }
@@ -62,13 +53,17 @@ class GroupViewModel: ViewModel() {
     fun checkTask(task: Task, position: Int) {
         viewModelScope.launch {
             checkTaskUC.execute(task)
-            editedTaskPos.postValue(position)
+            tasks[position] = retrieveTaskUC.execute(task.taskId)
+            tasks.sortBy { it.isCompleted }
+            notifier.postValue(true)
         }
     }
 
-    fun starTask(task: Task) {
+    fun starTask(task: Task, position: Int) {
         viewModelScope.launch {
             starTaskUC.execute(task)
+            tasks[position] = retrieveTaskUC.execute(task.taskId)
+            editedTaskPos.postValue(position)
         }
     }
 
@@ -76,6 +71,17 @@ class GroupViewModel: ViewModel() {
         viewModelScope.launch {
             deleteTaskUC.execute(task)
             selectTasksByGroup()
+        }
+    }
+
+    fun selectTasksByGroup() {
+        viewModelScope.launch {
+            tasks = selectTasksByGroupUC.execute(groupId) as MutableList<Task>
+            tasks.sortBy { it.isCompleted }
+            for (task in tasks) {
+                subtasks += selectSubtasksByTaskUC.execute(task.taskId) as MutableList<Subtask>
+            }
+            notifier.postValue(true)
         }
     }
 }

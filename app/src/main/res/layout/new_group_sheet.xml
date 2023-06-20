@@ -40,6 +40,7 @@
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="@color/red"
         android:text="@string/createBtnText"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/white" />
 
 </LinearLayout>

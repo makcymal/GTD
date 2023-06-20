@@ -9,6 +9,7 @@ import com.themakcym.gtd.databinding.TaskDialogBinding
 import com.themakcym.gtd.domain.models.Task
 import com.themakcym.gtd.presentation.viewmodels.GroupViewModel
 import com.themakcym.gtd.R
+import java.time.format.DateTimeFormatter
 
 
 class TaskDialog(
@@ -18,6 +19,7 @@ class TaskDialog(
 ) : DialogFragment() {
 
     private lateinit var binding: TaskDialogBinding
+    private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yy hh:mm")
 
 
     override fun onCreateView(
@@ -34,6 +36,9 @@ class TaskDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        "updated at ${task.taskUpdated.format(dateTimeFormatter)}".also {
+            binding.updatedTV.text = it
+        }
         binding.editTaskTitleInput.setText(task.taskTitle)
         binding.editTaskDescInput.setText(task.taskDesc)
 

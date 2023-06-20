@@ -36,6 +36,7 @@ class GroupFragment(private val groupId: UUID) : Fragment() {
 
         viewModel.notifier.observe(viewLifecycleOwner) {
             rvAdapter.submitList(viewModel.tasks)
+            rvAdapter.notifyDataSetChanged()
         }
         viewModel.selectTasksByGroup()
 

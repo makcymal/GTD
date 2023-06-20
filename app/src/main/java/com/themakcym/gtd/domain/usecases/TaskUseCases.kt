@@ -51,7 +51,6 @@ class SelectTasksByGroupUC(private val repo: Repository) {
 class CheckTaskUC(private val repo: Repository) {
     suspend fun execute(task: Task) {
         task.isCompleted = !task.isCompleted
-        task.taskUpdated = LocalDateTime.now()
         repo.updateTask(task)
     }
 }

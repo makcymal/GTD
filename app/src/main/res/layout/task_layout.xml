@@ -27,11 +27,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/transparent_bg"
-            android:src="@drawable/baseline_star_outline_40"
+            android:src="@drawable/baseline_star_outline_32"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/taskStarDesc"
-            android:padding="5dp"/>
+            android:padding="8dp"/>
 
         <TextView
             android:id="@+id/nameTV"
