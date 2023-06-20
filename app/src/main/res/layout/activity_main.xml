@@ -49,26 +49,6 @@
             android:contentDescription="@string/menuItemEditGroupDesc"
             android:src="@drawable/baseline_list_bulleted_32" />
 
-        <ImageButton
-            android:id="@+id/onlyStarredBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginHorizontal="16dp"
-            android:background="@color/red"
-            android:contentDescription="@string/menuItemOnlyStarredTasksDesc"
-            android:src="@drawable/baseline_star_32" />
-
-        <ImageButton
-            android:id="@+id/onlyUncompletedBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginHorizontal="16dp"
-            android:background="@color/red"
-            android:contentDescription="@string/menuItemOnlyUncompletedTasksDesc"
-            android:src="@drawable/baseline_check_box_32" />
-
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

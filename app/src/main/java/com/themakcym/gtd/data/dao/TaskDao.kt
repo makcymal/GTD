@@ -9,7 +9,10 @@ import java.util.UUID
 abstract class TaskDao {
 
     @Insert(onConflict=OnConflictStrategy.REPLACE)
-    abstract suspend fun insertTask(task: TaskEnt)
+    abstract suspend fun createTask(task: TaskEnt)
+
+    @Query("SELECT * FROM tasks WHERE taskId = :taskId")
+    abstract suspend fun retrieveTask(taskId: UUID): List<TaskEnt>
 
     @Update
     abstract suspend fun updateTask(task: TaskEnt)
@@ -19,10 +22,4 @@ abstract class TaskDao {
 
     @Query("SELECT * FROM tasks WHERE groupId = :groupId")
     abstract suspend fun selectTasksByGroup(groupId: UUID): List<TaskEnt>
-
-    @Query("SELECT * FROM tasks")
-    abstract suspend fun getTasks(): List<TaskEnt>
-
-    @Query("DELETE FROM tasks")
-    abstract suspend fun dropTasks()
 }

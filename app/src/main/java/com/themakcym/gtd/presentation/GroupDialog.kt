@@ -11,7 +11,11 @@ import com.themakcym.gtd.domain.models.Group
 import com.themakcym.gtd.presentation.viewmodels.MainViewModel
 
 
-class GroupDialog(private val group: Group, private val viewModel: MainViewModel) : DialogFragment() {
+class GroupDialog(
+    private val group: Group,
+    private val viewModel: MainViewModel,
+    private val position: Int
+) : DialogFragment() {
 
     private lateinit var binding: GroupDialogBinding
 
@@ -34,7 +38,7 @@ class GroupDialog(private val group: Group, private val viewModel: MainViewModel
 
         binding.editGroupFab.setOnClickListener {
             group.groupTitle = binding.editGroupTitleInput.text.toString()
-            viewModel.updateGroup(group)
+            viewModel.updateGroup(group, position)
             dismiss()
         }
 

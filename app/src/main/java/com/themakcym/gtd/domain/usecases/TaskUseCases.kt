@@ -18,6 +18,12 @@ class CreateTaskUC(private val repo: Repository) {
     }
 }
 
+class RetrieveTaskUC(private val repo: Repository) {
+    suspend fun execute(taskId: UUID): Task {
+        return repo.retrieveTask(taskId)
+    }
+}
+
 class UpdateTaskUC(private val repo: Repository) {
     suspend fun execute(task: Task) {
         if (task.taskTitle.isBlank()) {
@@ -25,40 +31,6 @@ class UpdateTaskUC(private val repo: Repository) {
         }
         task.taskTitle = task.taskTitle.trim().replace('\n', ' ', false)
         task.taskDesc = task.taskDesc.trim()
-        task.taskUpdated = LocalDateTime.now()
-        repo.updateTask(task)
-    }
-}
-
-class RenameTaskUC(private val repo: Repository) {
-    suspend fun execute(task: Task, taskTitle: String) {
-        if (taskTitle.isBlank()) {
-            return
-        }
-        task.taskTitle = taskTitle.trim().replace('\n', ' ', false)
-        task.taskUpdated = LocalDateTime.now()
-        repo.updateTask(task)
-    }
-}
-
-class DescribeTaskUC(private val repo: Repository) {
-    suspend fun execute(task: Task, taskDesc: String) {
-        task.taskDesc = taskDesc.trim()
-        task.taskUpdated = LocalDateTime.now()
-        repo.updateTask(task)
-    }
-}
-
-class MoveTaskUC(private val repo: Repository) {
-    suspend fun execute(task: Task, groupId: UUID) {
-        task.groupId = groupId
-        repo.updateTask(task)
-    }
-}
-
-class CheckTaskUC(private val repo: Repository) {
-    suspend fun execute(task: Task) {
-        task.isCompleted = !task.isCompleted
         task.taskUpdated = LocalDateTime.now()
         repo.updateTask(task)
     }
@@ -76,17 +48,21 @@ class SelectTasksByGroupUC(private val repo: Repository) {
     }
 }
 
-class GetTasksUC(private val repo: Repository) {
-    suspend fun execute(): List<Task> {
-        return repo.getTasks()
+class CheckTaskUC(private val repo: Repository) {
+    suspend fun execute(task: Task) {
+        task.isCompleted = !task.isCompleted
+        task.taskUpdated = LocalDateTime.now()
+        repo.updateTask(task)
     }
 }
 
-class DropTasksUC(private val repo: Repository) {
-    suspend fun execute() {
-        repo.dropTasks()
+class StarTaskUC(private val repo: Repository) {
+    suspend fun execute(task: Task) {
+        task.isStarred = !task.isStarred
+        repo.updateTask(task)
     }
 }
+
 
 class CreateSubtaskUC(private val repo: Repository) {
     suspend fun execute(subtask: Subtask) {
@@ -95,21 +71,37 @@ class CreateSubtaskUC(private val repo: Repository) {
     }
 }
 
-class CheckSubtaskUC(private val repo: Repository) {
+class RetrieveSubtaskUC(private val repo: Repository) {
+    suspend fun execute(taskId: UUID, subtaskId: Int): Subtask {
+        return repo.retrieveSubtask(taskId, subtaskId)
+    }
+}
+
+class UpdateSubtaskUC(private val repo: Repository) {
     suspend fun execute(subtask: Subtask) {
-        subtask.isCompleted = !subtask.isCompleted
+        if (subtask.subtaskDetails.isBlank()) {
+            return
+        }
+        subtask.subtaskDetails = subtask.subtaskDetails.trim()
         repo.updateSubtask(subtask)
     }
 }
 
-class SelectSubtasksUC(private val repo: Repository) {
-    suspend fun execute(taskId: UUID): List<Subtask> {
-        return repo.selectSubtasks(taskId)
+class DeleteSubtaskUC(private val repo: Repository) {
+    suspend fun execute(subtask: Subtask) {
+        repo.deleteSubtask(subtask)
     }
 }
 
-class DropAllUC(private val repo: Repository) {
-    suspend fun execute() {
-        repo.dropAll()
+class SelectSubtasksByTaskUC(private val repo: Repository) {
+    suspend fun execute(taskId: UUID): List<Subtask> {
+        return repo.selectSubtasksByTask(taskId)
+    }
+}
+
+class CheckSubtaskUC(private val repo: Repository) {
+    suspend fun execute(subtask: Subtask) {
+        subtask.isCompleted = !subtask.isCompleted
+        repo.updateSubtask(subtask)
     }
 }

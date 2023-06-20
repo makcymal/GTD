@@ -1,6 +1,5 @@
 package com.themakcym.gtd.presentation
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -25,20 +24,25 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
 
-        viewModel.groups.observe(this) {
+        viewModel.notifier.observe(this) {
             binding.groupsTL.removeAllTabs()
-            for (group in it) {
+            for (group in viewModel.groups) {
                 binding.groupsTL.addTab(binding.groupsTL.newTab())
             }
 
-            vpAdapter = ViewPagerAdapter(this, it)
+            vpAdapter = ViewPagerAdapter(this, viewModel.groups)
             binding.groupsVP.adapter = vpAdapter
 
             TabLayoutMediator(binding.groupsTL, binding.groupsVP) { tab, idx ->
-                tab.text = it[idx].groupTitle
+                tab.text = viewModel.groups[idx].groupTitle
             }.attach()
         }
-        viewModel.getGroups()
+        viewModel.selectGroups()
+
+
+        viewModel.updatedGroupPos.observe(this) {
+            vpAdapter.notifyItemChanged(it)
+        }
 
 
         viewModel.newGroup.observe(this) {
@@ -50,9 +54,18 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.editGroupBtn.setOnClickListener {
-            val groupDialog =
-                GroupDialog(vpAdapter.groupAt(binding.groupsVP.currentItem), viewModel)
-            groupDialog.show(supportFragmentManager, "groupDialog")
+            if (vpAdapter.itemCount > 0) {
+                val groupDialog =
+                    GroupDialog(
+                        vpAdapter.groupAt(binding.groupsVP.currentItem),
+                        viewModel,
+                        binding.groupsVP.currentItem
+                    )
+                groupDialog.show(supportFragmentManager, "groupDialog")
+            } else {
+                val snack = Snackbar.make(binding.root, "First you should create group", 1200)
+                snack.show()
+            }
         }
 
         viewModel.newTask.observe(this) {

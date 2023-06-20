@@ -2,6 +2,7 @@ package com.themakcym.gtd.presentation.adapters
 
 import android.view.*
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
@@ -19,8 +20,9 @@ class GroupAdapter(private val viewModel: GroupViewModel, private val activity: 
 
     // view - CardView with single task
     class TaskViewHolder(val view: View) : ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.nameTV)
         val checker: CheckBox = view.findViewById(R.id.checker)
+        val name: TextView = view.findViewById(R.id.nameTV)
+        val star: ImageButton = view.findViewById(R.id.taskStarBtn)
     }
 
     class CallBack : DiffUtil.ItemCallback<Task>() {
@@ -39,16 +41,25 @@ class GroupAdapter(private val viewModel: GroupViewModel, private val activity: 
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        holder.name.text = currentList[holder.adapterPosition].taskTitle
         holder.checker.isChecked = currentList[holder.adapterPosition].isCompleted
+        holder.name.text = currentList[holder.adapterPosition].taskTitle
+        if (currentList[holder.adapterPosition].isStarred) {
+            holder.star.setImageResource(R.drawable.baseline_star_outline_40)
+        } else {
+            holder.star.setImageResource(R.drawable.baseline_star_40)
+        }
+
+        holder.checker.setOnClickListener {
+            viewModel.checkTask(currentList[holder.adapterPosition], holder.adapterPosition)
+        }
 
         holder.view.setOnClickListener {
             val taskDialog = TaskDialog(currentList[holder.adapterPosition], viewModel, holder.adapterPosition)
             taskDialog.show(activity.supportFragmentManager, "taskDialog")
         }
 
-        holder.checker.setOnClickListener {
-            viewModel.checkTask(currentList[holder.adapterPosition], holder.adapterPosition)
+        holder.star.setOnClickListener {
+            viewModel.starTask(currentList[holder.adapterPosition])
         }
     }
 }

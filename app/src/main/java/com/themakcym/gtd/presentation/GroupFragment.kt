@@ -1,6 +1,5 @@
 package com.themakcym.gtd.presentation
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.*
@@ -35,12 +34,12 @@ class GroupFragment(private val groupId: UUID) : Fragment() {
         binding.tasksRecycler.adapter = rvAdapter
         binding.tasksRecycler.layoutManager = LinearLayoutManager(requireActivity())
 
-        viewModel.initialized.observe(viewLifecycleOwner) {
+        viewModel.notifier.observe(viewLifecycleOwner) {
             rvAdapter.submitList(viewModel.tasks)
         }
         viewModel.selectTasksByGroup()
 
-        viewModel.editedPosition.observe(viewLifecycleOwner) {
+        viewModel.editedTaskPos.observe(viewLifecycleOwner) {
             rvAdapter.notifyItemChanged(it)
         }
     }

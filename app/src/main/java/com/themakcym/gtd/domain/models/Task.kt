@@ -10,6 +10,7 @@ data class Task (
     val taskId: UUID = UNDEFINED_ID,
     var taskDesc: String = "",
     var isCompleted: Boolean = false,
+    var isStarred: Boolean = false,
     var taskUpdated: LocalDateTime = LocalDateTime.now(),
 )  {
     companion object {

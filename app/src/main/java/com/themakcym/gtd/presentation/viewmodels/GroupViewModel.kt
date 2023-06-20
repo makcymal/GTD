@@ -15,17 +15,25 @@ class GroupViewModel: ViewModel() {
     private val repo = Dep.repo
 
     private val createTaskUC = CreateTaskUC(repo)
-    private val selectTasksByGroupUC = SelectTasksByGroupUC(repo)
+    private val retrieveTaskUC = RetrieveGroupUC(repo)
     private val updateTaskUC = UpdateTaskUC(repo)
-    private val checkTaskUC = CheckTaskUC(repo)
     private val deleteTaskUC = DeleteTaskUC(repo)
-    private val selectSubtasksUC = SelectSubtasksUC(repo)
+    private val checkTaskUC = CheckTaskUC(repo)
+    private val starTaskUC = StarTaskUC(repo)
+    private val selectTasksByGroupUC = SelectTasksByGroupUC(repo)
+
+    private val createSubtaskUC = CreateSubtaskUC(repo)
+    private val retrieveSubtaskUC = RetrieveSubtaskUC(repo)
+    private val updateSubtaskUC = UpdateSubtaskUC(repo)
+    private val deleteSubtaskUC = DeleteSubtaskUC(repo)
+    private val checkSubtaskUC = CheckSubtaskUC(repo)
+    private val selectSubtasksByTaskUC = SelectSubtasksByTaskUC(repo)
 
     var tasks = mutableListOf<Task>()
     var subtasks = mutableListOf<MutableList<Subtask>>()
 
-    val initialized = MutableLiveData(false)
-    val editedPosition = MutableLiveData(0)
+    val notifier = MutableLiveData(false)
+    val editedTaskPos = MutableLiveData(0)
 
     fun createTask(title: String, desc: String) {
         viewModelScope.launch {
@@ -38,23 +46,29 @@ class GroupViewModel: ViewModel() {
         viewModelScope.launch {
             tasks = selectTasksByGroupUC.execute(groupId) as MutableList<Task>
             for (task in tasks) {
-                subtasks += selectSubtasksUC.execute(task.taskId) as MutableList<Subtask>
+                subtasks += selectSubtasksByTaskUC.execute(task.taskId) as MutableList<Subtask>
             }
-            initialized.postValue(true)
+            notifier.postValue(true)
         }
     }
 
     fun updateTask(task: Task, position: Int) {
         viewModelScope.launch {
             updateTaskUC.execute(task)
-            editedPosition.postValue(position)
+            editedTaskPos.postValue(position)
         }
     }
 
     fun checkTask(task: Task, position: Int) {
         viewModelScope.launch {
             checkTaskUC.execute(task)
-            editedPosition.postValue(position)
+            editedTaskPos.postValue(position)
+        }
+    }
+
+    fun starTask(task: Task) {
+        viewModelScope.launch {
+            starTaskUC.execute(task)
         }
     }
 

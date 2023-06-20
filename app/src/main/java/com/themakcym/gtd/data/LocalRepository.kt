@@ -12,7 +12,11 @@ class LocalRepository(private val db: Database) : Repository {
     // <<< Group
 
     override suspend fun createGroup(group: Group) {
-        db.groupDao().insertGroup(mapper.groupIntoEnt(group))
+        db.groupDao().createGroup(mapper.groupIntoEnt(group))
+    }
+
+    override suspend fun retrieveGroup(groupId: UUID): Group {
+        return mapper.groupFromEnt(db.groupDao().retrieveGroup(groupId)[0])
     }
 
     override suspend fun updateGroup(group: Group) {
@@ -23,16 +27,12 @@ class LocalRepository(private val db: Database) : Repository {
         db.groupDao().deleteGroup(mapper.groupIntoEnt(group))
     }
 
-    override suspend fun getGroups(): List<Group> {
+    override suspend fun selectGroups(): List<Group> {
         val groups = mutableListOf<Group>()
         for (groupEnt in db.groupDao().selectGroups()) {
             groups += mapper.groupFromEnt(groupEnt)
         }
         return groups
-    }
-
-    override suspend fun dropGroups() {
-        db.groupDao().dropGroups()
     }
 
     // Group >>>
@@ -41,7 +41,11 @@ class LocalRepository(private val db: Database) : Repository {
     // <<< Task
 
     override suspend fun createTask(task: Task) {
-        db.taskDao().insertTask(mapper.taskIntoEnt(task))
+        db.taskDao().createTask(mapper.taskIntoEnt(task))
+    }
+
+    override suspend fun retrieveTask(taskId: UUID): Task {
+        return mapper.taskFromEnt(db.taskDao().retrieveTask(taskId)[0])
     }
 
     override suspend fun updateTask(task: Task) {
@@ -60,38 +64,31 @@ class LocalRepository(private val db: Database) : Repository {
         return tasks
     }
 
-    override suspend fun getTasks(): List<Task> {
-        val tasks = mutableListOf<Task>()
-        for (taskEnt in db.taskDao().getTasks()) {
-            tasks += mapper.taskFromEnt(taskEnt)
-        }
-        return tasks
-    }
+    // Task >>>
 
-    override suspend fun dropTasks() {
-        db.taskDao().dropTasks()
-    }
+    // <<< Subtask
 
     override suspend fun createSubtask(subtask: Subtask) {
-        db.subtaskDao().insertSubtask(mapper.subtaskIntoEnt(subtask))
+        db.subtaskDao().createSubtask(mapper.subtaskIntoEnt(subtask))
+    }
+
+    override suspend fun retrieveSubtask(taskId: UUID, subtaskId: Int): Subtask {
+        return mapper.subtaskFromEnt(db.subtaskDao().retrieveSubtask(taskId, subtaskId)[0])
     }
 
     override suspend fun updateSubtask(subtask: Subtask) {
         db.subtaskDao().updateSubtask(mapper.subtaskIntoEnt(subtask))
     }
 
-    override suspend fun selectSubtasks(taskId: UUID): List<Subtask> {
+    override suspend fun deleteSubtask(subtask: Subtask) {
+        db.subtaskDao().deleteSubtask(mapper.subtaskIntoEnt(subtask))
+    }
+
+    override suspend fun selectSubtasksByTask(taskId: UUID): List<Subtask> {
         val subtasks = mutableListOf<Subtask>()
-        for (subtaskEnt in db.subtaskDao().selectSubtasks(taskId)) {
+        for (subtaskEnt in db.subtaskDao().selectSubtasksByTask(taskId)) {
             subtasks += mapper.subtaskFromEnt(subtaskEnt)
         }
         return subtasks
     }
-
-    override suspend fun dropAll() {
-        dropGroups()
-        dropTasks()
-    }
-
-    // Task >>>
 }

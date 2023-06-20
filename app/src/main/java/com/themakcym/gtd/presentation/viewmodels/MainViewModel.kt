@@ -13,52 +13,44 @@ class MainViewModel : ViewModel() {
     private val repo = Dep.repo
 
     private val createGroupUC = CreateGroupUC(repo)
-    private val getGroupsUC = GetGroupsUC(repo)
+    private val retrieveGroupUC = RetrieveGroupUC(repo)
     private val updateGroupUC = UpdateGroupUC(repo)
     private val deleteGroupUC = DeleteGroupUC(repo)
-    private val dropAllUC = DropAllUC(repo)
+    private val selectGroupsUC = SelectGroupsUC(repo)
 
-    private var initialized = false
-    val groups = MutableLiveData<List<Group>>()
+    val notifier = MutableLiveData(false)
+    val updatedGroupPos = MutableLiveData(0)
 
-    fun initialize() {
-        if (!initialized) {
-            viewModelScope.launch {
-                dropAllUC.execute()
-                val bucket = Group("Bucket", UUID.randomUUID())
-                val delayed = Group("Delayed", UUID.randomUUID())
-                createGroupUC.execute(bucket)
-                createGroupUC.execute(delayed)
-                groups.postValue(getGroupsUC.execute())
-                initialized = true
-            }
-        }
-    }
-
-    fun getGroups() {
-        viewModelScope.launch {
-            groups.postValue(getGroupsUC.execute())
-        }
-    }
+    var groups = mutableListOf<Group>()
 
     fun createGroup(title: String) {
         viewModelScope.launch {
             createGroupUC.execute(Group(title))
-            groups.postValue(getGroupsUC.execute())
+            groups = selectGroupsUC.execute() as MutableList<Group>
+            notifier.postValue(true)
         }
     }
 
-    fun updateGroup(group: Group) {
+    fun updateGroup(group: Group, position: Int) {
         viewModelScope.launch {
             updateGroupUC.execute(group)
-            groups.postValue(getGroupsUC.execute())
+            groups[position] = retrieveGroupUC.execute(group.groupId)
+            updatedGroupPos.postValue(position)
         }
     }
 
     fun deleteGroup(group: Group) {
         viewModelScope.launch {
             deleteGroupUC.execute(group)
-            getGroups()
+            groups = selectGroupsUC.execute() as MutableList<Group>
+            notifier.postValue(true)
+        }
+    }
+
+    fun selectGroups() {
+        viewModelScope.launch {
+            groups = selectGroupsUC.execute() as MutableList<Group>
+            notifier.postValue(true)
         }
     }
 

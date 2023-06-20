@@ -6,21 +6,20 @@ import com.themakcym.gtd.domain.models.*
 
 interface Repository {
     suspend fun createGroup(group: Group)
+    suspend fun retrieveGroup(groupId: UUID): Group
     suspend fun updateGroup(group: Group)
     suspend fun deleteGroup(group: Group)
-    suspend fun getGroups(): List<Group>
-    suspend fun dropGroups()
+    suspend fun selectGroups(): List<Group>
 
     suspend fun createTask(task: Task)
+    suspend fun retrieveTask(taskId: UUID): Task
     suspend fun updateTask(task: Task)
     suspend fun deleteTask(task: Task)
     suspend fun selectTasksByGroup(groupId: UUID): List<Task>
-    suspend fun getTasks(): List<Task>
-    suspend fun dropTasks()
 
     suspend fun createSubtask(subtask: Subtask)
+    suspend fun retrieveSubtask(taskId: UUID, subtaskId: Int): Subtask
     suspend fun updateSubtask(subtask: Subtask)
-    suspend fun selectSubtasks(taskId: UUID): List<Subtask>
-
-    suspend fun dropAll()
+    suspend fun deleteSubtask(subtask: Subtask)
+    suspend fun selectSubtasksByTask(taskId: UUID): List<Subtask>
 }

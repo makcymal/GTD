@@ -30,6 +30,7 @@ class Mapper {
             taskId,
             task.taskDesc,
             task.isCompleted,
+            task.isStarred,
             task.taskUpdated.toString()
         )
     }
@@ -41,6 +42,7 @@ class Mapper {
             taskEnt.taskId,
             taskEnt.taskDesc,
             taskEnt.isCompleted,
+            taskEnt.isStarred,
             LocalDateTime.parse(taskEnt.taskUpdated),
         )
     }
@@ -49,7 +51,7 @@ class Mapper {
         return SubtaskEnt(
             subtask.subtaskDetails,
             subtask.taskId,
-            subtask.subtaskPrior,
+            subtask.subtaskId,
             subtask.isCompleted,
         )
     }
@@ -58,7 +60,7 @@ class Mapper {
         return Subtask(
             ent.subtaskDetails,
             ent.taskId,
-            ent.subtaskPrior,
+            ent.subtaskId,
             ent.isCompleted,
         )
     }

@@ -4,10 +4,10 @@ import androidx.room.Entity
 import java.util.UUID
 
 
-@Entity(tableName = "subtasks", primaryKeys = ["taskId", "subtaskPrior"])
+@Entity(tableName = "subtasks", primaryKeys = ["taskId", "subtaskId"])
 data class SubtaskEnt (
     val subtaskDetails: String,
     val taskId: UUID,
-    val subtaskPrior: Int,
+    val subtaskId: Int,
     val isCompleted: Boolean,
 )

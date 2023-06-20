@@ -2,20 +2,18 @@ package com.themakcym.gtd.domain.usecases
 
 import com.themakcym.gtd.domain.models.Group
 import com.themakcym.gtd.domain.Repository
+import java.util.UUID
 
-
-class InitGroupsUC(private val repo: Repository) {
-    suspend fun execute() {
-        if (repo.getGroups().isEmpty()) {
-            repo.createGroup(Group("Bucket"))
-            repo.createGroup(Group("Delayed"))
-        }
-    }
-}
 
 class CreateGroupUC(private val repo: Repository) {
     suspend fun execute(group: Group) {
         repo.createGroup(group)
+    }
+}
+
+class RetrieveGroupUC(private val repo: Repository) {
+    suspend fun execute(groupId: UUID): Group {
+        return repo.retrieveGroup(groupId)
     }
 }
 
@@ -31,14 +29,8 @@ class DeleteGroupUC(private val repo: Repository) {
     }
 }
 
-class GetGroupsUC(private val repo: Repository) {
+class SelectGroupsUC(private val repo: Repository) {
     suspend fun execute() : List<Group> {
-        return repo.getGroups()
-    }
-}
-
-class DropGroupsUC(private val repo: Repository) {
-    suspend fun execute() {
-        repo.dropGroups()
+        return repo.selectGroups()
     }
 }

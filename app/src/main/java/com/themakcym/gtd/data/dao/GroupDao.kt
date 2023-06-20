@@ -2,13 +2,17 @@ package com.themakcym.gtd.data.dao
 
 import androidx.room.*
 import com.themakcym.gtd.data.entity.GroupEnt
+import java.util.UUID
 
 
 @Dao
 abstract class GroupDao {
 
     @Insert(onConflict=OnConflictStrategy.REPLACE)
-    abstract suspend fun insertGroup(group: GroupEnt)
+    abstract suspend fun createGroup(group: GroupEnt)
+
+    @Query("SELECT * FROM groups WHERE groupId = :groupId")
+    abstract suspend fun retrieveGroup(groupId: UUID): List<GroupEnt>
 
     @Update
     abstract suspend fun updateGroup(group: GroupEnt)
@@ -18,7 +22,4 @@ abstract class GroupDao {
 
     @Query("SELECT * FROM groups")
     abstract suspend fun selectGroups(): List<GroupEnt>
-
-    @Query("DELETE FROM groups")
-    abstract suspend fun dropGroups()
 }

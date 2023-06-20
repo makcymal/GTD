@@ -6,6 +6,6 @@ import java.util.UUID
 data class Subtask (
     var subtaskDetails: String,
     val taskId: UUID,
-    val subtaskPrior: Int,
+    val subtaskId: Int,
     var isCompleted: Boolean = false,
 )
