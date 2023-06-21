@@ -7,7 +7,7 @@ import com.themakcym.gtd.domain.usecases.*
 import kotlinx.coroutines.launch
 
 
-class GroupsViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
 
     private val repo = Dep.repo
 
@@ -55,4 +55,5 @@ class GroupsViewModel : ViewModel() {
 
     val newTask = MutableLiveData<Pair<String, String>>()
     val newGroup = MutableLiveData<String>()
+    var starredFiltered = false
 }

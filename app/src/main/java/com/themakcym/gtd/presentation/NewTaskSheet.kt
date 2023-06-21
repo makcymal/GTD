@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.themakcym.gtd.databinding.NewTaskSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.themakcym.gtd.presentation.viewmodels.GroupsViewModel
+import com.themakcym.gtd.presentation.viewmodels.MainViewModel
 
 
 class NewTaskSheet : BottomSheetDialogFragment() {
     private lateinit var binding: NewTaskSheetBinding
-    private lateinit var viewModel: GroupsViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity())[GroupsViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         binding.createTaskBtn.setOnClickListener {
             newTaskAction()
         }

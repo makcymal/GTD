@@ -17,7 +17,7 @@ object Dep {
         Dep.context = context
     }
 
-    val db: Database by lazy {
+    private val db: Database by lazy {
         Room.databaseBuilder(context, Database::class.java, "gtd.db").build()
     }
 

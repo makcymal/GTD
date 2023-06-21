@@ -22,9 +22,9 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout
-                android:layout_marginEnd="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp">
 
                 <ImageButton
                     android:id="@+id/taskDialogCancelBtn"
@@ -54,14 +54,6 @@
                     android:src="@drawable/baseline_check_box_32" />
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
-
-<!--                -->
-
-<!--            </LinearLayout>-->
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -186,20 +178,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/subtasksHeader"
             tools:listitem="@layout/subtask_layout" />
-
-
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/editTaskBtn"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="32dp"-->
-<!--            android:clickable="true"-->
-<!--            android:contentDescription="@string/taskDialogSubmitBtnDesc"-->
-<!--            android:src="@drawable/baseline_check_32"-->
-<!--            app:fabCustomSize="64dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:maxImageSize="32dp" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

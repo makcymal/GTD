@@ -6,7 +6,7 @@ import java.util.UUID
 
 
 @Entity(tableName = "groups")
-data class GroupEnt (
+data class GroupEnt(
     var groupTitle: String,
     @PrimaryKey
     val groupId: UUID,

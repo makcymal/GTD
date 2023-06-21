@@ -7,7 +7,6 @@ import android.view.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.themakcym.gtd.databinding.TasksFragmentBinding
-
 import com.themakcym.gtd.presentation.adapters.TasksAdapter
 import com.themakcym.gtd.presentation.viewmodels.TasksViewModel
 import java.util.UUID
@@ -25,7 +24,7 @@ class TasksFragment(private val groupId: UUID) : Fragment() {
     ): View {
 
         binding = TasksFragmentBinding
-.inflate(layoutInflater)
+            .inflate(layoutInflater)
         viewModel = ViewModelProvider(this)[TasksViewModel::class.java]
         viewModel.groupId = groupId
         rvAdapter = TasksAdapter(viewModel, requireActivity())

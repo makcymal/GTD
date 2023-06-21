@@ -14,11 +14,11 @@ import com.themakcym.gtd.presentation.TaskDialog
 import com.themakcym.gtd.presentation.viewmodels.TasksViewModel
 
 
-class TasksAdapter(private val viewModel: TasksViewModel, private val activity: FragmentActivity) : ListAdapter<Task, TasksAdapter.TaskViewHolder>(
-    CallBack()
-) {
+class TasksAdapter(private val viewModel: TasksViewModel, private val activity: FragmentActivity) :
+    ListAdapter<Task, TasksAdapter.TaskViewHolder>(
+        CallBack()
+    ) {
 
-    // view - CardView with single task
     class TaskViewHolder(val view: View) : ViewHolder(view) {
         val checker: CheckBox = view.findViewById(R.id.checker)
         val name: TextView = view.findViewById(R.id.nameTV)
@@ -54,7 +54,8 @@ class TasksAdapter(private val viewModel: TasksViewModel, private val activity: 
         }
 
         holder.view.setOnClickListener {
-            val taskDialog = TaskDialog(currentList[holder.adapterPosition], viewModel, holder.adapterPosition)
+            val taskDialog =
+                TaskDialog(currentList[holder.adapterPosition], viewModel, holder.adapterPosition)
             taskDialog.show(activity.supportFragmentManager, "taskDialog")
         }
 

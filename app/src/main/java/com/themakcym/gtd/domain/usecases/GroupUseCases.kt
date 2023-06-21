@@ -7,6 +7,7 @@ import java.util.UUID
 
 class CreateGroupUC(private val repo: Repository) {
     suspend fun execute(group: Group) {
+        group.groupTitle = group.groupTitle.trim().replace('\n', ' ', false)
         repo.createGroup(group)
     }
 }
@@ -19,6 +20,7 @@ class RetrieveGroupUC(private val repo: Repository) {
 
 class UpdateGroupUC(private val repo: Repository) {
     suspend fun execute(group: Group) {
+        group.groupTitle = group.groupTitle.trim().replace('\n', ' ', false)
         repo.updateGroup(group)
     }
 }
@@ -30,7 +32,7 @@ class DeleteGroupUC(private val repo: Repository) {
 }
 
 class SelectGroupsUC(private val repo: Repository) {
-    suspend fun execute() : List<Group> {
+    suspend fun execute(): List<Group> {
         return repo.selectGroups()
     }
 }

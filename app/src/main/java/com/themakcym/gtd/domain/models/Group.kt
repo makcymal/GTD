@@ -3,7 +3,7 @@ package com.themakcym.gtd.domain.models
 import java.util.UUID
 
 
-data class Group (
+data class Group(
     var groupTitle: String,
     val groupId: UUID = UNDEFINED_ID,
 ) {

@@ -12,7 +12,6 @@ import com.themakcym.gtd.domain.models.Task
 import com.themakcym.gtd.presentation.viewmodels.TasksViewModel
 import com.themakcym.gtd.R
 import com.themakcym.gtd.presentation.adapters.SubtaskAdapter
-import com.themakcym.gtd.presentation.viewmodels.SubtasksViewModel
 import java.time.format.DateTimeFormatter
 
 
@@ -57,17 +56,18 @@ class TaskDialog(
             task.taskTitle = binding.editTaskTitleInput.text.toString()
             task.taskDesc = binding.editTaskDescInput.text.toString()
             viewModel.updateTask(task, position)
-//            it.requestFocus()
             viewModel.subtasksVM[position].commitSubtasks()
             dismiss()
         }
 
         binding.taskDialogCancelBtn.setOnClickListener {
+            viewModel.subtasksVM[position].selectSubtasks()
             dismiss()
         }
 
         binding.moveTaskToTrashBtn.setOnClickListener {
             viewModel.deleteTask(task)
+            viewModel.subtasksVM.removeAt(position)
             dismiss()
         }
 

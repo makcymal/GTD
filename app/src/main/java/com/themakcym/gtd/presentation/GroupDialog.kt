@@ -8,12 +8,12 @@ import androidx.fragment.app.DialogFragment
 import com.themakcym.gtd.R
 import com.themakcym.gtd.databinding.GroupDialogBinding
 import com.themakcym.gtd.domain.models.Group
-import com.themakcym.gtd.presentation.viewmodels.GroupsViewModel
+import com.themakcym.gtd.presentation.viewmodels.MainViewModel
 
 
 class GroupDialog(
     private val group: Group,
-    private val viewModel: GroupsViewModel,
+    private val viewModel: MainViewModel,
     private val position: Int
 ) : DialogFragment() {
 

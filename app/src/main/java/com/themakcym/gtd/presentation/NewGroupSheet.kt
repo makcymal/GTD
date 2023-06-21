@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.themakcym.gtd.databinding.NewGroupSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.themakcym.gtd.presentation.viewmodels.GroupsViewModel
+import com.themakcym.gtd.presentation.viewmodels.MainViewModel
 
 
 class NewGroupSheet : BottomSheetDialogFragment() {
     private lateinit var binding: NewGroupSheetBinding
-    private lateinit var viewModel: GroupsViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity())[GroupsViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         binding.createGroupBtn.setOnClickListener {
             newGroupAction()
         }
@@ -31,7 +31,7 @@ class NewGroupSheet : BottomSheetDialogFragment() {
 
     private fun newGroupAction() {
         viewModel.newGroup.postValue(
-                binding.newGroupTitleInput.text.toString()
+            binding.newGroupTitleInput.text.toString()
         )
         binding.newGroupTitleInput.setText("")
         dismiss()

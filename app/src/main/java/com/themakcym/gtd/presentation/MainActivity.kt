@@ -5,15 +5,16 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
+import com.themakcym.gtd.R
 import com.themakcym.gtd.databinding.ActivityMainBinding
-import com.themakcym.gtd.presentation.viewmodels.GroupsViewModel
+import com.themakcym.gtd.presentation.viewmodels.MainViewModel
 import com.themakcym.gtd.presentation.adapters.ViewPagerAdapter
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: GroupsViewModel
+    private lateinit var viewModel: MainViewModel
     private lateinit var vpAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[GroupsViewModel::class.java]
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
 
         viewModel.notifier.observe(this) {
@@ -55,12 +56,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.editGroupBtn.setOnClickListener {
             if (vpAdapter.itemCount > 0) {
-                val groupDialog =
-                    GroupDialog(
-                        vpAdapter.groupAt(binding.groupsVP.currentItem),
-                        viewModel,
-                        binding.groupsVP.currentItem
-                    )
+                val groupDialog = GroupDialog(
+                    vpAdapter.groupAt(binding.groupsVP.currentItem),
+                    viewModel,
+                    binding.groupsVP.currentItem
+                )
                 groupDialog.show(supportFragmentManager, "groupDialog")
             } else {
                 val snack = Snackbar.make(binding.root, "First you should create group", 1200)
@@ -68,9 +68,30 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+        binding.filterStarredBtn.setOnClickListener {
+            println(viewModel.starredFiltered)
+            if (viewModel.starredFiltered) {
+                for (i in 0 until vpAdapter.itemCount) {
+                    vpAdapter.getFragment(i).viewModel.selectFilteredTasks(false)
+                }
+                binding.filterStarredBtn.setImageResource(R.drawable.baseline_white_star_outline_32)
+                viewModel.starredFiltered = false
+            } else {
+                for (i in 0 until vpAdapter.itemCount) {
+                    vpAdapter.getFragment(i).viewModel.selectFilteredTasks(true)
+                }
+                binding.filterStarredBtn.setImageResource(R.drawable.baseline_white_star_32)
+                viewModel.starredFiltered = true
+            }
+        }
+
+
         viewModel.newTask.observe(this) {
-            vpAdapter.getFragment(binding.groupsVP.currentItem).viewModel
-                .createTask(it.first, it.second)
+            vpAdapter.getFragment(binding.groupsVP.currentItem).viewModel.createTask(
+                    it.first,
+                    it.second
+                )
         }
         binding.newTaskFab.setOnClickListener {
             if (vpAdapter.itemCount > 0) {

@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".presentation.NewTaskSheet">
 
     <TextView
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/newGroupSheetHeader"
-        android:textSize="30sp"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
-        style="@style/TextAppearance.AppCompat.Title"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/newGroupSheetHeader"
+        android:textSize="30sp" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="20dp">
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newGroupTitleInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/newGroupTitleInput"
-            android:hint="@string/newGroupTitleInputHint"/>
+            android:hint="@string/newGroupTitleInputHint" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -40,7 +39,7 @@
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="@color/red"
         android:text="@string/createBtnText"
-        android:textStyle="bold"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
 </LinearLayout>

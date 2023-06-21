@@ -47,6 +47,12 @@ class SelectTasksByGroupUC(private val repo: Repository) {
     }
 }
 
+class SelectStarredTasksByGroupUC(private val repo: Repository) {
+    suspend fun execute(groupId: UUID): List<Task> {
+        return repo.selectStarredTasksByGroup(groupId)
+    }
+}
+
 class CheckTaskUC(private val repo: Repository) {
     suspend fun execute(task: Task) {
         task.isCompleted = !task.isCompleted

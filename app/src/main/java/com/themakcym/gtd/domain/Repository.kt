@@ -16,11 +16,9 @@ interface Repository {
     suspend fun updateTask(task: Task)
     suspend fun deleteTask(task: Task)
     suspend fun selectTasksByGroup(groupId: UUID): List<Task>
+    suspend fun selectStarredTasksByGroup(groupId: UUID): List<Task>
 
     suspend fun createSubtask(subtask: Subtask)
-    suspend fun retrieveSubtask(taskId: UUID, subtaskId: Int): Subtask
-    suspend fun updateSubtask(subtask: Subtask)
-    suspend fun deleteSubtask(subtask: Subtask)
     suspend fun deleteSubtasksByTask(taskId: UUID)
     suspend fun selectSubtasksByTask(taskId: UUID): List<Subtask>
 }

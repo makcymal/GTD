@@ -21,6 +21,7 @@ class TasksViewModel : ViewModel() {
     private val checkTaskUC = CheckTaskUC(repo)
     private val starTaskUC = StarTaskUC(repo)
     private val selectTasksByGroupUC = SelectTasksByGroupUC(repo)
+    private val selectStarredTasksByGroupUC = SelectStarredTasksByGroupUC(repo)
 
     var tasks = mutableListOf<Task>()
     var subtasksVM = mutableListOf<SubtasksViewModel>()
@@ -70,11 +71,30 @@ class TasksViewModel : ViewModel() {
     fun selectTasksByGroup() {
         viewModelScope.launch {
             tasks = selectTasksByGroupUC.execute(groupId) as MutableList<Task>
-            tasks.sortBy { it.isCompleted }
             for (task in tasks) {
                 subtasksVM += SubtasksViewModel()
             }
             notifier.postValue(true)
+        }
+    }
+
+    fun selectFilteredTasks(starredFiltered: Boolean) {
+        if (starredFiltered) {
+            viewModelScope.launch {
+                tasks = selectStarredTasksByGroupUC.execute(groupId) as MutableList<Task>
+                for (task in tasks) {
+                    subtasksVM += SubtasksViewModel()
+                }
+                notifier.postValue(true)
+            }
+        } else {
+            viewModelScope.launch {
+                tasks = selectTasksByGroupUC.execute(groupId) as MutableList<Task>
+                for (task in tasks) {
+                    subtasksVM += SubtasksViewModel()
+                }
+                notifier.postValue(true)
+            }
         }
     }
 }

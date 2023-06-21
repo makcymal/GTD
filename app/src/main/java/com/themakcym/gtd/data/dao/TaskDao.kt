@@ -8,7 +8,7 @@ import java.util.UUID
 @Dao
 abstract class TaskDao {
 
-    @Insert(onConflict=OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun createTask(task: TaskEnt)
 
     @Query("SELECT * FROM tasks WHERE taskId = :taskId")
@@ -20,6 +20,9 @@ abstract class TaskDao {
     @Delete
     abstract suspend fun deleteTask(task: TaskEnt)
 
-    @Query("SELECT * FROM tasks WHERE groupId = :groupId ORDER BY taskUpdated")
+    @Query("SELECT * FROM tasks WHERE groupId = :groupId ORDER BY isCompleted, taskUpdated")
     abstract suspend fun selectTasksByGroup(groupId: UUID): List<TaskEnt>
+
+    @Query("SELECT * FROM tasks WHERE isStarred AND groupId = :groupId ORDER BY isCompleted, taskUpdated")
+    abstract suspend fun selectStarredTasksByGroup(groupId: UUID): List<TaskEnt>
 }

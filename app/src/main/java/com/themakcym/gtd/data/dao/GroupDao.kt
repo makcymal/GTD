@@ -8,7 +8,7 @@ import java.util.UUID
 @Dao
 abstract class GroupDao {
 
-    @Insert(onConflict=OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun createGroup(group: GroupEnt)
 
     @Query("SELECT * FROM groups WHERE groupId = :groupId")

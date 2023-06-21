@@ -4,7 +4,7 @@ import java.util.UUID
 import java.time.LocalDateTime
 
 
-data class Task (
+data class Task(
     var taskTitle: String,
     var groupId: UUID,
     val taskId: UUID = UNDEFINED_ID,
@@ -13,7 +13,7 @@ data class Task (
     var isStarred: Boolean = false,
     var taskUpdated: LocalDateTime = LocalDateTime.now(),
     var subtaskId: Int = 0,
-)  {
+) {
     companion object {
         val UNDEFINED_ID: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")
     }

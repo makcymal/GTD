@@ -8,7 +8,7 @@ import java.util.UUID
 @Dao
 abstract class SubtaskDao {
 
-    @Insert(onConflict=OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun createSubtask(subtask: SubtaskEnt)
 
     @Query("SELECT * FROM subtasks WHERE taskId = :taskId AND subtaskId = :subtaskId")

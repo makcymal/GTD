@@ -36,7 +36,6 @@ class SubtasksViewModel : ViewModel() {
 
     fun updateSubtask(details: String, position: Int) {
         subtasks[position].subtaskDetails = details
-//        println(subtasks)
     }
 
     fun checkSubtask(position: Int) {

@@ -6,7 +6,7 @@ import java.util.UUID
 
 
 @Entity(tableName = "tasks")
-data class TaskEnt (
+data class TaskEnt(
     val taskTitle: String,
     val groupId: UUID,
     @PrimaryKey
