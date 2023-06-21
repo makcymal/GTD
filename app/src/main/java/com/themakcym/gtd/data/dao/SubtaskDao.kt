@@ -20,6 +20,9 @@ abstract class SubtaskDao {
     @Delete
     abstract suspend fun deleteSubtask(subtask: SubtaskEnt)
 
-    @Query("SELECT * FROM subtasks WHERE taskId = :taskId")
+    @Query("DELETE FROM subtasks WHERE taskId = :taskId")
+    abstract suspend fun deleteSubtasksByTask(taskId: UUID)
+
+    @Query("SELECT * FROM subtasks WHERE taskId = :taskId ORDER BY isCompleted, subtaskId DESC")
     abstract suspend fun selectSubtasksByTask(taskId: UUID): List<SubtaskEnt>
 }

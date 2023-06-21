@@ -31,7 +31,8 @@ class Mapper {
             task.taskDesc,
             task.isCompleted,
             task.isStarred,
-            task.taskUpdated.toString()
+            task.taskUpdated.toString(),
+            task.subtaskId
         )
     }
 
@@ -44,23 +45,24 @@ class Mapper {
             ent.isCompleted,
             ent.isStarred,
             LocalDateTime.parse(ent.taskUpdated),
+            ent.subtaskId
         )
     }
 
     fun subtaskIntoEnt(subtask: Subtask): SubtaskEnt {
         return SubtaskEnt(
-            subtask.subtaskDetails,
             subtask.taskId,
             subtask.subtaskId,
+            subtask.subtaskDetails,
             subtask.isCompleted,
         )
     }
 
     fun subtaskFromEnt(ent: SubtaskEnt): Subtask {
         return Subtask(
-            ent.subtaskDetails,
             ent.taskId,
             ent.subtaskId,
+            ent.subtaskDetails,
             ent.isCompleted,
         )
     }

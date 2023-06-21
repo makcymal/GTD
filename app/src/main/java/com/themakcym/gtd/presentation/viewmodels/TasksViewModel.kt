@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 
-class GroupViewModel : ViewModel() {
+class TasksViewModel : ViewModel() {
 
     var groupId: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")
 
@@ -22,15 +22,8 @@ class GroupViewModel : ViewModel() {
     private val starTaskUC = StarTaskUC(repo)
     private val selectTasksByGroupUC = SelectTasksByGroupUC(repo)
 
-    private val createSubtaskUC = CreateSubtaskUC(repo)
-    private val retrieveSubtaskUC = RetrieveSubtaskUC(repo)
-    private val updateSubtaskUC = UpdateSubtaskUC(repo)
-    private val deleteSubtaskUC = DeleteSubtaskUC(repo)
-    private val checkSubtaskUC = CheckSubtaskUC(repo)
-    private val selectSubtasksByTaskUC = SelectSubtasksByTaskUC(repo)
-
     var tasks = mutableListOf<Task>()
-    var subtasks = mutableListOf<MutableList<Subtask>>()
+    var subtasksVM = mutableListOf<SubtasksViewModel>()
 
     val notifier = MutableLiveData(false)
     val editedTaskPos = MutableLiveData(0)
@@ -79,7 +72,7 @@ class GroupViewModel : ViewModel() {
             tasks = selectTasksByGroupUC.execute(groupId) as MutableList<Task>
             tasks.sortBy { it.isCompleted }
             for (task in tasks) {
-                subtasks += selectSubtasksByTaskUC.execute(task.taskId) as MutableList<Subtask>
+                subtasksVM += SubtasksViewModel()
             }
             notifier.postValue(true)
         }

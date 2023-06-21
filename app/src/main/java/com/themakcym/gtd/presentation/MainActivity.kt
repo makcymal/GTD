@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.themakcym.gtd.databinding.ActivityMainBinding
-import com.themakcym.gtd.presentation.viewmodels.MainViewModel
+import com.themakcym.gtd.presentation.viewmodels.GroupsViewModel
 import com.themakcym.gtd.presentation.adapters.ViewPagerAdapter
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: GroupsViewModel
     private lateinit var vpAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this)[GroupsViewModel::class.java]
 
 
         viewModel.notifier.observe(this) {

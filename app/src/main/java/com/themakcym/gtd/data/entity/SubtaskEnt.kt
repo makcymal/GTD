@@ -6,8 +6,8 @@ import java.util.UUID
 
 @Entity(tableName = "subtasks", primaryKeys = ["taskId", "subtaskId"])
 data class SubtaskEnt (
-    val subtaskDetails: String,
     val taskId: UUID,
     val subtaskId: Int,
+    val subtaskDetails: String,
     val isCompleted: Boolean,
 )

@@ -14,5 +14,6 @@ data class TaskEnt (
     val taskDesc: String,
     val isCompleted: Boolean,
     val isStarred: Boolean,
-    val taskUpdated: String
+    val taskUpdated: String,
+    val subtaskId: Int,
 )

@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.themakcym.gtd.R
 import com.themakcym.gtd.domain.models.Task
 import com.themakcym.gtd.presentation.TaskDialog
-import com.themakcym.gtd.presentation.viewmodels.GroupViewModel
+import com.themakcym.gtd.presentation.viewmodels.TasksViewModel
 
 
-class GroupAdapter(private val viewModel: GroupViewModel, private val activity: FragmentActivity) : ListAdapter<Task, GroupAdapter.TaskViewHolder>(
+class TasksAdapter(private val viewModel: TasksViewModel, private val activity: FragmentActivity) : ListAdapter<Task, TasksAdapter.TaskViewHolder>(
     CallBack()
 ) {
 

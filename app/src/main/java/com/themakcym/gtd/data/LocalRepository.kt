@@ -76,6 +76,10 @@ class LocalRepository(private val db: Database) : Repository {
         return mapper.subtaskFromEnt(db.subtaskDao().retrieveSubtask(taskId, subtaskId)[0])
     }
 
+    override suspend fun deleteSubtasksByTask(taskId: UUID) {
+        db.subtaskDao().deleteSubtasksByTask(taskId)
+    }
+
     override suspend fun updateSubtask(subtask: Subtask) {
         db.subtaskDao().updateSubtask(mapper.subtaskIntoEnt(subtask))
     }

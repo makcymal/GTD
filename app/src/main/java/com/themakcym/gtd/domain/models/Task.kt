@@ -12,6 +12,7 @@ data class Task (
     var isCompleted: Boolean = false,
     var isStarred: Boolean = false,
     var taskUpdated: LocalDateTime = LocalDateTime.now(),
+    var subtaskId: Int = 0,
 )  {
     companion object {
         val UNDEFINED_ID: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")
@@ -19,5 +20,10 @@ data class Task (
 
     fun isUndefined(): Boolean {
         return taskId == UNDEFINED_ID
+    }
+
+    fun nextSubtaskId(): Int {
+        subtaskId++
+        return subtaskId
     }
 }

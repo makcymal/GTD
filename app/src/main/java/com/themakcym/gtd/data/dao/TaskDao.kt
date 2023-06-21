@@ -20,6 +20,6 @@ abstract class TaskDao {
     @Delete
     abstract suspend fun deleteTask(task: TaskEnt)
 
-    @Query("SELECT * FROM tasks WHERE groupId = :groupId")
+    @Query("SELECT * FROM tasks WHERE groupId = :groupId ORDER BY taskUpdated")
     abstract suspend fun selectTasksByGroup(groupId: UUID): List<TaskEnt>
 }

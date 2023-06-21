@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.GroupFragment">
+    tools:context=".presentation.TasksFragment">
 
     <TextView
         android:id="@+id/groupTV"
@@ -13,7 +13,7 @@
     </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tasksRecycler"
+        android:id="@+id/tasksRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

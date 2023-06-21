@@ -5,10 +5,9 @@ import com.themakcym.gtd.di.Dep
 import com.themakcym.gtd.domain.models.*
 import com.themakcym.gtd.domain.usecases.*
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 
-class MainViewModel : ViewModel() {
+class GroupsViewModel : ViewModel() {
 
     private val repo = Dep.repo
 

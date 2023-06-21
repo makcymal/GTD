@@ -1,38 +1,43 @@
 package com.themakcym.gtd.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.themakcym.gtd.databinding.GroupFragmentBinding
-import com.themakcym.gtd.presentation.adapters.GroupAdapter
-import com.themakcym.gtd.presentation.viewmodels.GroupViewModel
+import com.themakcym.gtd.databinding.TasksFragmentBinding
+
+import com.themakcym.gtd.presentation.adapters.TasksAdapter
+import com.themakcym.gtd.presentation.viewmodels.TasksViewModel
 import java.util.UUID
 
 
-class GroupFragment(private val groupId: UUID) : Fragment() {
+class TasksFragment(private val groupId: UUID) : Fragment() {
 
-    private lateinit var binding: GroupFragmentBinding
-    lateinit var viewModel: GroupViewModel
-    private lateinit var rvAdapter: GroupAdapter
+    private lateinit var binding: TasksFragmentBinding
+
+    lateinit var viewModel: TasksViewModel
+    private lateinit var rvAdapter: TasksAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
-        binding = GroupFragmentBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this)[GroupViewModel::class.java]
+        binding = TasksFragmentBinding
+.inflate(layoutInflater)
+        viewModel = ViewModelProvider(this)[TasksViewModel::class.java]
         viewModel.groupId = groupId
-        rvAdapter = GroupAdapter(viewModel, requireActivity())
+        rvAdapter = TasksAdapter(viewModel, requireActivity())
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tasksRecycler.adapter = rvAdapter
-        binding.tasksRecycler.layoutManager = LinearLayoutManager(requireActivity())
+        binding.tasksRV.adapter = rvAdapter
+        binding.tasksRV.layoutManager = LinearLayoutManager(requireActivity())
 
         viewModel.notifier.observe(viewLifecycleOwner) {
             rvAdapter.submitList(viewModel.tasks)

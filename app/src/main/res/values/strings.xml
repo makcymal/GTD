@@ -23,8 +23,7 @@
 
     <string name="menuItemNewGroupDesc">New group</string>
     <string name="menuItemEditGroupDesc">Edit group</string>
-    <string name="menuItemOnlyStarredTasksDesc">Filter starred tasks</string>
-    <string name="menuItemOnlyUncompletedTasksDesc">Filter uncompleted tasks</string>
 
     <string name="moveToTrash">move to trash</string>
+    <string name="newSubtaskBtnText">new subtask</string>
 </resources>
